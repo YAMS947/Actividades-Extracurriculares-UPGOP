@@ -19,22 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //  RUTA PRINCIPAL (HTML)
 // ===============================
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'P_Principal', 'index.html'));
-    console.log(Exitoso)
+    res.sendFile(path.join(__dirname, 'P_Principal', 'index.html'));// Encuentra la ruta de la primer página a mostrar
 });
 
-// ===============================
-//  RUTA DE PRUEBA DE BASE DE DATOS
-// ===============================
-app.get('/test-db', (req, res) => {
-    db.query('SELECT 1 + 1 AS resultado', (err, results) => {
-        if (err) {
-            console.error('Error en la consulta:', err);
-            return res.status(500).json({ error: 'Error en la base de datos' });
-        }
-        res.json({ mensaje: 'Conexión exitosa', resultado: results[0].resultado });
-    });
-});
+/* REGISTRO DE MODULOS */
+app.use(' /alumnos' , require('./routes/alumnos'));
 
 // ===============================
 //  INICIAR SERVIDOR
@@ -43,3 +32,5 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+
