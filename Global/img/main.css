@@ -138,7 +138,7 @@ header{
         font-size: 1.2rem;
     }
     .decoracion-esquina {
-        width: 130px; /* Más pequeñas en móviles */
+        width: 2rem; /* Más pequeñas en móviles */
     }
     .nav-links {
         right: 20px;
