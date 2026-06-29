@@ -1,0 +1,95 @@
+body{
+
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f0f0f0;
+    text-align:center;
+    margin-top:100px;
+
+}
+
+.btnRegistro{
+
+    padding:15px 40px;
+    font-size:20px;
+    cursor:pointer;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:8px;
+
+}
+
+.btnRegistro:hover{
+
+    background:#0056b3;
+
+}
+
+.modal{
+
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+
+}
+
+.contenido{
+
+    width:400px;
+    background:white;
+    margin:60px auto;
+    padding:25px;
+    border-radius:10px;
+    position:relative;
+
+}
+
+.cerrar{
+
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:30px;
+    cursor:pointer;
+
+}
+
+label{
+
+    display:block;
+    text-align:left;
+    margin-top:10px;
+
+}
+
+input{
+
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    box-sizing:border-box;
+
+}
+
+form button{
+
+    width:100%;
+    padding:12px;
+    background:#28a745;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+
+}
+
+form button:hover{
+
+    background:#218838;
+
+}
