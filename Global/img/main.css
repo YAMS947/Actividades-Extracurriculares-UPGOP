@@ -1,48 +1,48 @@
 /* Estilos generales */
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    margin:0; /* Elimina márgenes por defecto */
+    padding:0; /* Elimina relleno por defecto */
+    box-sizing:border-box; /* Incluye borde y padding en el tamaño total */
 }
 
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* Fuente general */
 }
 
 .pie_De_Pagina{
-    background-color:#2E239A;
-    color:white;
-    padding:25px 40px;
+    background-color:#2E239A; /* Fondo azul */
+    color:white; /* Texto blanco */
+    padding:25px 40px; /* Espaciado interno */
 }
 
 .contenedor_Pie{
-    display:flex;
-    justify-content:space-between;
-    gap:50px;
+    display:flex; /* Coloca las secciones en fila */
+    justify-content:space-between; /* Espacio entre ellas */
+    gap:50px; /* Separación entre secciones */
 }
 
 .seccion_Contacto,
 .seccion_Universidad{
-    width:50%;
+    width:50%; /* Cada sección ocupa la mitad */
 }
 
 .seccion_Contacto h3,
 .seccion_Universidad h3{
-    border-bottom:1px solid white;
+    border-bottom:1px solid white; /* Línea debajo del título */
     padding-bottom:5px;
     margin-bottom:20px;
 }
 
 .dato_Contacto{
-    display:flex;
+    display:flex; /* Icono + texto en fila */
     align-items:flex-start;
     margin-bottom:20px;
 }
 
 .icono img{
-    width:35px;
+    width:35px; /* Tamaño del icono */
     height:auto;
-    margin-right:15px;
+    margin-right:15px; /* Espacio entre icono y texto */
     display:block;
 }
 
@@ -51,46 +51,60 @@ h4{
 }
 
 .dato_Contacto p{
-    color:#CFCFCF;
-    line-height:1.4;
+    color:#CFCFCF; /* Color gris claro */
+    line-height:1.4; /* Espaciado entre líneas */
+}
+
+/* Enlaces */
+.link {
+    color: #00FFFF; /* Azul claro */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
 }
 
 /* Botón */
 .btn-terminos {
-    background-color: #00FFFF;
-    color: #2E239A;
+    background-color: #00FFFF; /* Fondo azul claro */
+    color: #2E239A; /* Texto azul oscuro */
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .btn-terminos:hover {
-    background-color: #CFCFCF;
+    background-color: #CFCFCF; /* Cambio de color al pasar el mouse */
 }
 
 /* Modal */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Se mantiene en pantalla */
+    z-index: 1; /* Se coloca encima del contenido */
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro transparente */
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 10% auto;
+    background-color: #fff; /* Fondo blanco */
+    margin: 5% auto; /* Centrado vertical y horizontal */
     padding: 20px;
     border-radius: 8px;
-    width: 80%;
-    color: #000;
+    width: 80%; /* Ancho del modal */
+    color: #000; /* Texto negro */
+    max-height: 80%; /* Altura máxima */
+    overflow-y: auto; /* Scroll interno si hay mucho texto */
 }
 
 .close {
-    float: right;
+    float: right; /* Botón de cierre a la derecha */
     font-size: 28px;
     cursor: pointer;
 }

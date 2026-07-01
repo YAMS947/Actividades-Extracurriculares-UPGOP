@@ -1,76 +1,86 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> <!-- Declaración de tipo de documento: HTML5 -->
+<html lang="es"> <!-- Idioma principal: español -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pie de Página</title>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres (permite acentos y ñ) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
+    <title>Pie de Página</title> <!-- Título de la pestaña del navegador -->
     
-    <!-- Conexión al CSS -->
+    <!-- Conexión al archivo CSS externo -->
     <link rel="stylesheet" href="../Global/img/main.css">
 </head>
 <body>
 
+<!-- Texto de prueba -->
 <p>Lorem5</p>
 <p>Lorem5</p>
 <p>lorem5</p>
 <p>lorem5</p>
 
 <!-- Pie de página -->
-<footer class="pie_De_Pagina">
+<footer class="pie_De_Pagina"> <!-- Contenedor principal del footer -->
 
-    <div class="contenedor_Pie">
+    <div class="contenedor_Pie"> <!-- Agrupa las secciones del pie -->
 
         <!-- Sección Contacto -->
         <div class="seccion_Contacto">
-            <h3>Contacto</h3>
+            <h3>Contacto</h3> <!-- Título de la sección -->
 
+            <!-- Primer contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35">
+                    <img src="../Global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Director del Área de Vinculación</h4>
-                    <p>rhidrogo@upgop.edu.mx</p>
+                    <p>rhidrogo@upgop.edu.mx</p> <!-- Correo del director -->
                 </div>
             </div>
 
+            <!-- Segundo contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35">
+                    <img src="../Global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Secretaria del Área de Vinculación</h4>
-                    <p>arodrigueez@upgop.edu.mx</p>
+                    <p>arodrigueez@upgop.edu.mx</p> <!-- Correo de la secretaria -->
                 </div>
             </div>
 
+            <!-- Teléfono -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35">
+                    <img src="../Global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
                 </div>
                 <div>
                     <p>Teléfono: 8711922700</p>
-                    <p>Extensión-Vinculacion: 828</p>
+                    <p>Extensión-Vinculacion: 828</p> <!-- Número y extensión -->
                 </div>
             </div>
         </div>
 
         <!-- Sección Universidad -->
         <div class="seccion_Universidad">
-            <h3>Universidad</h3>
+            <h3>Universidad</h3> <!-- Título de la sección -->
 
+            <!-- Sitio web -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35">
+                    <img src="../Global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
                 </div>
                 <div>
-                    <p>https://upgop.edu.mx</p>
+                    <p>
+                        <a href="https://upgop.edu.mx" target="_blank" class="link"> <!-- Enlace al sitio web -->
+                            https://upgop.edu.mx
+                        </a>
+                    </p>
                 </div>
             </div>
 
+            <!-- Dirección física -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35">
+                    <img src="../Global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
                 </div>
                 <div>
                     <p>
@@ -93,31 +103,86 @@
 
 </footer>
 
-<!-- Modal -->
-<div id="modalTerminos" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span>
-        <h2>Términos y Condiciones</h2>
-        <p><strong>1. Finalidad del Sitio</strong><br>
-        Este sitio web tiene como propósito exclusivo fines académicos, educativos y de práctica profesional...</p>
+<!-- Modal de Términos y Condiciones -->
+<div id="modalTerminos" class="modal"> <!-- Ventana emergente oculta -->
+    <div class="modal-content"> <!-- Contenido del modal -->
+        <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span> <!-- Botón cerrar -->
+        <h2>Términos y Condiciones de Uso</h2>
 
-        <p><strong>2. Uso de Datos Personales</strong><br>
-        Los datos proporcionados por los usuarios serán utilizados únicamente para identificación, registro académico...</p>
+        <!-- Texto explicativo -->
+              <p><strong>1. Propósito del Sitio Web</strong><br>
+        Este sitio web ha sido desarrollado con fines exclusivamente académicos como parte de un proyecto escolar.
+        Su objetivo es demostrar competencias técnicas relacionadas con programación, diseño web, gestión de datos y desarrollo de aplicaciones.
+        El sitio no representa una plataforma oficial, institucional ni comercial.</p>
 
-        <p><strong>3. Responsabilidad del Usuario</strong><br>
-        El usuario se compromete a proporcionar información verídica, usar el sitio únicamente para fines académicos...</p>
+        <p><strong>2. Uso de la Plataforma</strong><br>
+        El usuario acepta que el uso de esta página es únicamente para actividades relacionadas con el proyecto académico.
+        Queda prohibido utilizar el sitio para:
 
-        <p><strong>4. Seguridad de la Información</strong><br>
-        El sitio implementa medidas razonables para proteger los datos...</p>
+        Actividades comerciales
 
-        <p><strong>5. Propiedad Intelectual</strong><br>
-        El diseño, contenido y funcionamiento del sitio son parte de un proyecto académico...</p>
+        Distribución de información falsa
 
-        <p><strong>6. Modificaciones</strong><br>
-        Los presentes Términos y Condiciones pueden actualizarse...</p>
+        Acciones que afecten la integridad del sistema
 
-        <p><strong>7. Aceptación</strong><br>
-        El uso de este sitio implica la aceptación total de estos Términos y Condiciones...</p>
+        Cualquier uso distinto al propósito educativo del proyecto</p>
+
+        <p><strong>3. Información Proporcionada por el Usuario</strong><br>
+        El sitio puede solicitar datos como:
+
+        Nombre
+
+        Apellidos
+
+        Matrícula
+
+        Usuario
+
+        Contraseña
+
+        Estos datos se utilizan únicamente para demostrar el funcionamiento técnico del sistema (registro, validación, almacenamiento y manejo de información).
+
+        No se utilizarán para ningún fin externo, comercial, administrativo o institucional.</p>
+
+        <p><strong>4. Protección y Manejo de Datos</strong><br>
+        Los datos ingresados:
+
+        No serán compartidos con terceros
+
+        No serán utilizados para identificar al usuario fuera del contexto académico
+
+        No serán almacenados con fines de análisis, venta o distribución
+
+        No serán vinculados con información real de sistemas institucionales
+
+        Toda la información es manejada dentro de un entorno controlado y con fines de aprendizaje.</p>
+
+        <p><strong>5. Limitación de Responsabilidad</strong><br>
+        Debido a que el sitio es parte de un proyecto académico:
+
+        Puede contener errores técnicos
+
+        Puede presentar fallos en la conexión o funcionamiento
+
+        No garantiza disponibilidad continua
+
+        No debe considerarse como un sistema oficial de gestión escolar
+
+        El desarrollador no se hace responsable por el uso indebido del sitio fuera del contexto educativo.</p>
+
+        <p><strong>6. Modificaciones al Sistema</strong><br>
+        El contenido, diseño y funcionamiento del sitio pueden cambiar en cualquier momento sin previo aviso, ya que forma parte de un proceso de aprendizaje y mejora continua.</p>
+
+        <p><strong>7. Aceptación de los Términos</strong><br>
+        Al utilizar este sitio web, el usuario reconoce haber leído y aceptado estos Términos y Condiciones.
+        Si el usuario no está de acuerdo con ellos, deberá abstenerse de utilizar la plataforma.</p>
+
+        <!-- Más secciones de términos -->
+
+        <!-- Botón de aceptar -->
+        <button class="btn-terminos" onclick="document.getElementById('modalTerminos').style.display='none'">
+            Aceptar
+        </button>
     </div>
 </div>
 
