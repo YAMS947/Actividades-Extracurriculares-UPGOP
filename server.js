@@ -30,8 +30,7 @@ app.get('/', (req, res) => {
     y .js donde accedemos a la base de datos con su conexión a este mismo .js
 */
 //       (Referencia a usar,     Ruta donde se encuentra la logíca para manejar los datos)
-app.use(' /alumnos' , require('./routes/alumnos')); // Tabla de alumnos
-app.use(' /' , require('.routes/')); //
+
 
 // ===============================
 //  INICIAR SERVIDOR
