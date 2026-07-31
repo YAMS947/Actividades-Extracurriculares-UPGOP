@@ -9,7 +9,7 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Ajusta la ruta según tu proyecto
+const db = require('../db'); 
 
 // ============================================================
 // 1. OBTENER TODOS LOS TALLERES (solo para gestores)

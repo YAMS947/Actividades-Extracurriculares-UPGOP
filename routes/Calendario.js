@@ -9,7 +9,7 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Ajusta la ruta según tu proyecto
+const db = require('../db'); 
 
 // ============================================================
 // 1. OBTENER TODOS LOS TALLERES (solo para gestores)
@@ -40,7 +40,6 @@ router.get('/talleres', (req, res) => {
     });
 });
 
-
 // ============================================================
 // 2. OBTENER DÍAS ACTIVOS SEGÚN EL TIPO DE USUARIO
 // ------------------------------------------------------------
@@ -51,12 +50,12 @@ router.get('/talleres', (req, res) => {
 // Lógica:
 // - Si el usuario es GESTOR → usa id_taller enviado por el frontend.
 // - Si NO es GESTOR → obtiene automáticamente el taller del usuario.
+// - Si es ALUM → además obtiene sus asistencias.
 // ============================================================
 router.post('/dias-activos', (req, res) => {
 
     const { id_usuario, tipo_usuario, id_taller } = req.body;
 
-    // Validación básica
     if (!id_usuario || !tipo_usuario) {
         return res.status(400).json({ error: "Faltan datos de sesión" });
     }
@@ -128,6 +127,35 @@ router.post('/dias-activos', (req, res) => {
                 return res.status(500).json({ error: "Error al obtener días activos" });
             }
 
+            // ============================================================
+            // Si es ALUM → obtener asistencias del alumno
+            // ============================================================
+            if (tipo_usuario === "ALUM") {
+
+                const sqlAsistencias = `
+                    SELECT id_dia, tipo
+                    FROM asistencia
+                    WHERE id_usuario = ?
+                    ORDER BY id_dia ASC;
+                `;
+
+                return db.query(sqlAsistencias, [id_usuario], (err, asistencias) => {
+                    if (err) {
+                        console.error("Error al obtener asistencias:", err);
+                        return res.status(500).json({ error: "Error al obtener asistencias" });
+                    }
+
+                    res.json({
+                        mensaje: "Días activos y asistencias obtenidos correctamente",
+                        dias_activos: dias,
+                        asistencias: asistencias
+                    });
+                });
+            }
+
+            // ============================================================
+            // Si es INST → solo enviar días activos
+            // ============================================================
             res.json({
                 mensaje: "Días activos obtenidos correctamente",
                 dias_activos: dias
