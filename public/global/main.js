@@ -1,0 +1,61 @@
+// Solo construimos el menú, ya no manejamos hover con JS
+const userType = localStorage.getItem("userType") || "NONE";
+const userName = localStorage.getItem("userName") || "Iniciar sesión";
+
+const menu = document.getElementById("menu-hamb");
+
+function construirMenu() {
+    menu.innerHTML = "";
+
+    const inicio = crearItem(userName, "../public/Pages/P_Inicio_De_Sesion/inicioSesion.html");
+    menu.appendChild(inicio);
+
+    if (userType === "NONE") return;
+
+    if (userType === "ALUM") {
+        menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
+        menu.appendChild(crearItem("Mis datos", "/Pages/P_Gestion_De_Alumno/alumno.html"));
+        menu.appendChild(crearCerrarSesion());
+    }
+
+    if (userType === "INST") {
+        menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
+        menu.appendChild(crearItem("Alumnos", "/Pages/P_Gestion_De_Alumnos/alumnos.html"));
+        menu.appendChild(crearItem("Solicitudes", "/Pages/P_Solicitudes/solicitudes.html"));
+        menu.appendChild(crearItem("Mis datos", "/Pages/P_Gestion_De_Instructor/instructor.html"));
+        menu.appendChild(crearCerrarSesion());
+    }
+
+    if (userType === "GEST") {
+        menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
+        menu.appendChild(crearItem("Alumnos", "/Pages/P_Gestion_De_Alumnos/alumnos.html"));
+        menu.appendChild(crearItem("Instructores", "/Pages/P_Gestion_De_Instructores/instructores.html"));
+        menu.appendChild(crearItem("Solicitudes", "/Pages/P_Solicitudes/solicitudes.html"));
+        menu.appendChild(crearCerrarSesion());
+    }
+}
+
+function crearItem(texto, ruta) {
+    const a = document.createElement("a");
+    a.className = "menu-item";
+    a.textContent = texto;
+    a.href = ruta;
+    return a;
+}
+
+function crearCerrarSesion() {
+    const a = document.createElement("a");
+    a.className = "menu-item";
+    a.textContent = "Cerrar sesión";
+    a.href = "#";
+    a.onclick = () => {
+        if (confirm("¿Deseas cerrar sesión?")) {
+            localStorage.setItem("userType", "NONE");
+            localStorage.setItem("userName", "Iniciar sesión");
+            location.href = "/P_Principal/index.html";
+        }
+    };
+    return a;
+}
+
+construirMenu();

@@ -1,0 +1,51 @@
+.bienvenida {
+    font-family: "Inter", sans-serif;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 20px;
+    color: #251F9C;
+}
+
+/* Carrusel */
+.carrusel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.img-carrusel {
+    width: 60rem;
+    height: 35rem;
+    border: 10px solid #EB4D4D;
+    background-color: #6281F0;
+    cursor: pointer;
+}
+
+/* Botones transparentes */
+.btn-carrusel-izquierdo {
+    width: 90px;
+    height: 35rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-carrusel-derecho {
+    width: 90px;
+    height: 35rem;
+    border: none;
+    cursor: pointer;
+}
+
+.img-btn-carrusel-izquierdo {
+    width: 90px;
+    height: 35rem;
+}
+
+.img-btn-carrusel-derecho {
+    width: 90px;
+    height: 35rem;
+}
+

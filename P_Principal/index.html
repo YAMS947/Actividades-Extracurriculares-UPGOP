@@ -3,18 +3,58 @@
 <head>
     <meta charset="UTF-8"> <!-- Codificación de caracteres (permite acentos y ñ) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
-    <title>Pie de Página</title> <!-- Título de la pestaña del navegador -->
+    <title>Actividades Extracurriculares UPGOP</title> <!-- Título de la pestaña del navegador -->
     
     <!-- Conexión al archivo CSS externo -->
-    <link rel="stylesheet" href="../Global/img/main.css">
+    <link rel="stylesheet" href="../public/global/main.css">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header class="encabezado">
+    <img src="/public/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
 
-<!-- Texto de prueba -->
-<p>Lorem5</p>
-<p>Lorem5</p>
-<p>lorem5</p>
-<p>lorem5</p>
+    <div class="encab-centro">
+        <a href="https://upgop.edu.mx/">
+            <img src="/public/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
+        </a>
+    </div>
+    <a href="/P_Principal/index.html" class="titulo-encab">
+            ACTIVIDADES EXTRACURRICULARES
+        </a>
+
+    <img src="/public/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
+
+    <!-- Botón hamburguesa -->
+    <div class="hamburger-container">
+    <div id="hamburger" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav id="menu-hamb" class="menu-hamb">
+        <!-- Se llena dinámicamente -->
+    </nav>
+</div>
+
+    
+</header>
+
+<div class="bienvenida">
+    ¡BIENVENIDOS XIXIMES!
+</div>
+
+<div class="carrusel">
+    <button class="btn-carrusel-izquierdo" id="btn-prev"> <img src="../public/global/img/principal/talleres_principal_boton_izquierdo.png" alt="" class="img-btn-carrusel-izquierdo"> </button>
+
+    <img id="img-carrusel" class="img-carrusel" src="" alt="Taller">
+
+    <button class="btn-carrusel-derecho" id="btn-next"> <img src="../public/global/img/principal/talleres_principal_boton_derecho.png" alt="" class="img-btn-carrusel-derecho"> </button>
+</div>
+
 
 <!-- Pie de página -->
 <footer class="pie_De_Pagina"> <!-- Contenedor principal del footer -->
@@ -28,7 +68,7 @@
             <!-- Primer contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="../public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Director del Área de Vinculación</h4>
@@ -39,7 +79,7 @@
             <!-- Segundo contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="../public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Secretaria del Área de Vinculación</h4>
@@ -50,7 +90,7 @@
             <!-- Teléfono -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
+                    <img src="../public/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
                 </div>
                 <div>
                     <p>Teléfono: 8711922700</p>
@@ -66,7 +106,7 @@
             <!-- Sitio web -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
+                    <img src="../public/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
                 </div>
                 <div>
                     <p>
@@ -80,7 +120,7 @@
             <!-- Dirección física -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../Global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
+                    <img src="../public/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
                 </div>
                 <div>
                     <p>
@@ -185,6 +225,12 @@
         </button>
     </div>
 </div>
+
+    <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
+    <script src="../public/global/main.js"></script>
+
+    <!-- JS LOCAL (carrusel) -->
+    <script src="index.js"></script>
 
 </body>
 </html>
