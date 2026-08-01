@@ -37,31 +37,31 @@ app.get('/', (req, res) => {
 // =======================
 
 // Inicio de sesión
-const inicioSesionRoutes = require('./routes/Inicio_De_Sesion');
+const inicioSesionRoutes = require('./public/routes/Inicio_De_Sesion');
 
 // Gestión de un alumno (datos, baja, actualizar)
-const gestionAlumnoRoutes = require('./routes/Gestion_De_Alumno');
+const gestionAlumnoRoutes = require('./public/routes/Gestion_De_Alumno');
 
 // Gestión de alumnos (lista, alta, etc.)
-const gestionAlumnosRoutes = require('./routes/Gestion_De_Alumnos');
+const gestionAlumnosRoutes = require('./public/routes/Gestion_De_Alumnos');
 
 // Gestión de un instructor (datos, baja, actualizar)
-const gestionInstructorRoutes = require('./routes/Gestion_De_Instructor');
+const gestionInstructorRoutes = require('./public/routes/Gestion_De_Instructor');
 
 // Gestión de instructores (lista, alta, etc.)
-const gestionInstructoresRoutes = require('./routes/Gestion_De_Instructores');
+const gestionInstructoresRoutes = require('./public/routes/Gestion_De_Instructores');
 
 // Pase de lista
-const paseListaRoutes = require('./routes/Pase_De_Lista');
+const paseListaRoutes = require('./public/routes/Pase_De_Lista');
 
 // Calendario
-const calendarioRoutes = require('./routes/Calendario');
+const calendarioRoutes = require('./public/routes/Calendario');
 
 // Solicitudes (consultar, aceptar, rechazar)
-const solicitudesRoutes = require('./routes/Solicitudes');
+const solicitudesRoutes = require('./public/routes/Solicitudes');
 
 // Registrar solicitud (alumno)
-const registrarSolicitudRoutes = require('./routes/Registrar_Solicitud');
+const registrarSolicitudRoutes = require('./public/routes/Registrar_Solicitud');
 
 // =======================
 // REGISTRAR RUTAS

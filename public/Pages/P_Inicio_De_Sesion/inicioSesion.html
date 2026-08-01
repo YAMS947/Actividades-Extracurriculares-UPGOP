@@ -1,0 +1,272 @@
+<!DOCTYPE html> <!-- Declaración de tipo de documento: HTML5 -->
+<html lang="es"> <!-- Idioma principal: español -->
+<head>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres (permite acentos y ñ) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
+    <title>Actividades Extracurriculares UPGOP</title> <!-- Título de la pestaña del navegador -->
+    
+    <!-- Conexión al archivo CSS externo -->
+    <link rel="stylesheet" href="/global/main.css">
+
+    <link rel="stylesheet" href="index.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="encabezado">
+    <img src="/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
+
+    <div class="encab-centro">
+        <a href="https://upgop.edu.mx/">
+            <img src="/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
+        </a>
+    </div>
+    <a href="/" class="titulo-encab"> <!-- Hay que solucionar esta ruta, es la que se le proporciona al servidor desde un incio-->
+            ACTIVIDADES EXTRACURRICULARES
+        </a>
+
+    <img src="/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
+
+    <!-- Botón hamburguesa -->
+    <div class="hamburger-container">
+    <div id="hamburger" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav id="menu-hamb" class="menu-hamb">
+        <!-- Se llena dinámicamente -->
+    </nav>
+</div>
+
+    
+</header>
+
+<!-- Inicio del contenido del cuerpo de la página -->
+
+<!-- Fin del contenido del cuerpo de la página -->
+
+<!-- Pie de página -->
+<footer class="pie_De_Pagina"> <!-- Contenedor principal del footer -->
+
+    <div class="contenedor_Pie"> <!-- Agrupa las secciones del pie -->
+
+        <!-- Sección Contacto -->
+        <div class="seccion_Contacto">
+            <h3>Contacto</h3> <!-- Título de la sección -->
+
+            <!-- Primer contacto -->
+            <div class="dato_Contacto">
+                <div class="icono">
+                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                </div>
+                <div>
+                    <h4>Director del Área de Vinculación</h4>
+                    <p>rhidrogo@upgop.edu.mx</p> <!-- Correo del director -->
+                </div>
+            </div>
+
+            <!-- Segundo contacto -->
+            <div class="dato_Contacto">
+                <div class="icono">
+                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                </div>
+                <div>
+                    <h4>Secretaria del Área de Vinculación</h4>
+                    <p>arodrigueez@upgop.edu.mx</p> <!-- Correo de la secretaria -->
+                </div>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="dato_Contacto">
+                <div class="icono">
+                    <img src="/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
+                </div>
+                <div>
+                    <p>Teléfono: 8711922700</p>
+                    <p>Extensión-Vinculacion: 828</p> <!-- Número y extensión -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Universidad -->
+        <div class="seccion_Universidad">
+            <h3>Universidad</h3> <!-- Título de la sección -->
+
+            <!-- Sitio web -->
+            <div class="dato_Contacto">
+                <div class="icono">
+                    <img src="/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
+                </div>
+                <div>
+                    <p>
+                        <a href="https://upgop.edu.mx" target="_blank" class="link"> <!-- Enlace al sitio web -->
+                            https://upgop.edu.mx
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dirección física -->
+            <div class="dato_Contacto">
+                <div class="icono">
+                    <img src="/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
+                </div>
+                <div>
+                    <p>
+                        Carretera El Vergel - La Torreña Km. 0 820,
+                        El Vergel, 35120, Gómez Palacio,
+                        Dgo., México.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Botón de Términos y condiciones -->
+            <div class="dato_Contacto">
+                <button class="btn-terminos" onclick="document.getElementById('modalTerminos').style.display='block'">
+                    Términos y condiciones
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- Modal de Términos y Condiciones -->
+<div id="modalTerminos" class="modal">
+    <div class="modal-content">
+
+        <!-- Botón cerrar -->
+        <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span>
+
+        <!-- Título -->
+        <h2>Términos y Condiciones de Uso de la Plataforma Académica</h2>
+
+        <!-- CONTENIDO NUEVO -->
+        <div id="contenido-terminos">
+
+            <h3>1. Definiciones</h3>
+            <p>
+                Para efectos de este documento:
+                <br><br>
+                <strong>“Plataforma”</strong>: Sitio web desarrollado con fines académicos para la demostración de técnicas de programación y administración de datos.
+                <br>
+                <strong>“Usuario”</strong>: Persona que accede, utiliza o interactúa con la Plataforma.
+                <br>
+                <strong>“Desarrollador”</strong>: Autor del proyecto, responsable del diseño y funcionamiento técnico del sistema.
+                <br>
+                <strong>“Datos Personales”</strong>: Información ingresada por el Usuario, incluyendo nombre, apellidos, matrícula, usuario y contraseña.
+            </p>
+
+            <h3>2. Propósito y Alcance del Proyecto</h3>
+            <p>
+                La Plataforma ha sido creada exclusivamente con fines educativos como parte de un proyecto académico.
+                No constituye un sistema oficial de la institución educativa, ni reemplaza plataformas administrativas reales.
+                La información ingresada no se utiliza para trámites escolares, evaluaciones, registros oficiales ni procesos administrativos.
+            </p>
+
+            <h3>3. Uso Permitido</h3>
+            <p>
+                El Usuario acepta que la Plataforma debe utilizarse únicamente para actividades relacionadas con el aprendizaje y la demostración técnica.
+                Queda prohibido:
+                <br><br>
+                • Utilizar la Plataforma para fines comerciales o institucionales<br>
+                • Intentar acceder a sistemas externos o bases de datos reales<br>
+                • Manipular el sistema con fines maliciosos<br>
+                • Proporcionar información personal real sin consentimiento
+            </p>
+
+            <h3>4. Administración y Naturaleza de los Datos</h3>
+            <p>
+                La Plataforma permite registrar información con fines de demostración técnica.
+                Los datos ingresados pueden ser reales, ficticios o simulados.
+                La Plataforma no valida la información contra sistemas oficiales ni bases de datos institucionales.
+                <br><br>
+                <strong>No se realiza tratamiento formal de datos personales conforme a la legislación vigente</strong>,
+                dado que el proyecto no constituye un servicio real ni un sistema productivo.
+            </p>
+
+            <h3>5. Seguridad y Limitaciones Técnicas</h3>
+            <p>
+                Debido a su naturaleza académica:
+                <br><br>
+                • Puede contener errores o fallos técnicos<br>
+                • No garantiza disponibilidad continua<br>
+                • No implementa protocolos avanzados de seguridad<br>
+                • No asegura cifrado completo de la información<br>
+                • No está diseñada para manejar datos sensibles o confidenciales
+                <br><br>
+                El Usuario reconoce estas limitaciones y utiliza la Plataforma bajo su propio criterio académico.
+            </p>
+
+            <h3>6. Conservación y Eliminación de Datos</h3>
+            <p>
+                Los datos ingresados:
+                <br><br>
+                • No se almacenan con fines institucionales<br>
+                • No se comparten con terceros<br>
+                • No se utilizan para análisis externos<br>
+                • Pueden ser eliminados en cualquier momento por el Desarrollador<br>
+                • Serán eliminados al finalizar el proyecto académico
+            </p>
+
+            <h3>7. Derechos del Usuario</h3>
+            <p>
+                El Usuario tiene derecho a:
+                <br><br>
+                • Solicitar la eliminación de los datos ingresados<br>
+                • Utilizar información ficticia en lugar de datos reales<br>
+                • Abstenerse de proporcionar información personal sensible
+            </p>
+
+            <h3>8. Responsabilidad del Usuario</h3>
+            <p>
+                El Usuario es responsable de:
+                <br><br>
+                • La veracidad de los datos que ingresa<br>
+                • No proporcionar información personal sin consentimiento<br>
+                • No utilizar la Plataforma para fines distintos a los académicos
+            </p>
+
+            <h3>9. Limitación de Responsabilidad del Desarrollador</h3>
+            <p>
+                El Desarrollador no será responsable por:
+                <br><br>
+                • El uso indebido de la Plataforma<br>
+                • La introducción de datos reales sin autorización<br>
+                • Fallos técnicos, interrupciones o pérdida de información<br>
+                • Daños derivados del uso de la Plataforma fuera del contexto académico
+            </p>
+
+            <h3>10. Modificaciones</h3>
+            <p>
+                El Desarrollador puede modificar el contenido, diseño o funcionamiento de la Plataforma sin previo aviso,
+                como parte del proceso de aprendizaje y mejora continua.
+            </p>
+
+            <h3>11. Aceptación de los Términos</h3>
+            <p>
+                Al utilizar la Plataforma, el Usuario reconoce haber leído y aceptado estos Términos y Condiciones.
+                Si el Usuario no está de acuerdo, deberá abstenerse de utilizar la Plataforma.
+            </p>
+
+        </div>
+
+        <!-- Botón aceptar -->
+        <button class="btn-terminos" onclick="document.getElementById('modalTerminos').style.display='none'">
+            Aceptar
+        </button>
+
+    </div>
+</div>
+
+    <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
+    <script src="/global/main.js"></script>
+
+    <!-- JS LOCAL -->
+    <script src=""></script>
+
+</body>
+</html>
