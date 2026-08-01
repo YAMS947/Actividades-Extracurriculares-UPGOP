@@ -6,7 +6,7 @@
     <title>Actividades Extracurriculares UPGOP</title> <!-- Título de la pestaña del navegador -->
     
     <!-- Conexión al archivo CSS externo -->
-    <link rel="stylesheet" href="../public/global/main.css">
+    <link rel="stylesheet" href="/global/main.css">
 
     <link rel="stylesheet" href="index.css">
 
@@ -14,18 +14,18 @@
 </head>
 <body>
     <header class="encabezado">
-    <img src="/public/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
+    <img src="/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
 
     <div class="encab-centro">
         <a href="https://upgop.edu.mx/">
-            <img src="/public/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
+            <img src="/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
         </a>
     </div>
-    <a href="/P_Principal/index.html" class="titulo-encab">
+    <a href="/" class="titulo-encab"> <!-- Hay que solucionar esta ruta, es la que se le proporciona al servidor desde un incio-->
             ACTIVIDADES EXTRACURRICULARES
         </a>
 
-    <img src="/public/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
+    <img src="/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
 
     <!-- Botón hamburguesa -->
     <div class="hamburger-container">
@@ -48,11 +48,11 @@
 </div>
 
 <div class="carrusel">
-    <button class="btn-carrusel-izquierdo" id="btn-prev"> <img src="../public/global/img/principal/talleres_principal_boton_izquierdo.png" alt="" class="img-btn-carrusel-izquierdo"> </button>
+    <button class="btn-carrusel-izquierdo" id="btn-prev"> <img src="/global/img/principal/talleres_principal_boton_izquierdo.png" alt="" class="img-btn-carrusel-izquierdo"> </button>
 
     <img id="img-carrusel" class="img-carrusel" src="" alt="Taller">
 
-    <button class="btn-carrusel-derecho" id="btn-next"> <img src="../public/global/img/principal/talleres_principal_boton_derecho.png" alt="" class="img-btn-carrusel-derecho"> </button>
+    <button class="btn-carrusel-derecho" id="btn-next"> <img src="/global/img/principal/talleres_principal_boton_derecho.png" alt="" class="img-btn-carrusel-derecho"> </button>
 </div>
 
 
@@ -68,7 +68,7 @@
             <!-- Primer contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Director del Área de Vinculación</h4>
@@ -79,7 +79,7 @@
             <!-- Segundo contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Secretaria del Área de Vinculación</h4>
@@ -90,7 +90,7 @@
             <!-- Teléfono -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../public/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
+                    <img src="/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
                 </div>
                 <div>
                     <p>Teléfono: 8711922700</p>
@@ -106,7 +106,7 @@
             <!-- Sitio web -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../public/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
+                    <img src="/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
                 </div>
                 <div>
                     <p>
@@ -120,7 +120,7 @@
             <!-- Dirección física -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="../public/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
+                    <img src="/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
                 </div>
                 <div>
                     <p>
@@ -144,90 +144,135 @@
 </footer>
 
 <!-- Modal de Términos y Condiciones -->
-<div id="modalTerminos" class="modal"> <!-- Ventana emergente oculta -->
-    <div class="modal-content"> <!-- Contenido del modal -->
-        <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span> <!-- Botón cerrar -->
-        <h2>Términos y Condiciones de Uso</h2>
+<div id="modalTerminos" class="modal">
+    <div class="modal-content">
 
-        <!-- Texto explicativo -->
-              <p><strong>1. Propósito del Sitio Web</strong><br>
-        Este sitio web ha sido desarrollado con fines exclusivamente académicos como parte de un proyecto escolar.
-        Su objetivo es demostrar competencias técnicas relacionadas con programación, diseño web, gestión de datos y desarrollo de aplicaciones.
-        El sitio no representa una plataforma oficial, institucional ni comercial.</p>
+        <!-- Botón cerrar -->
+        <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span>
 
-        <p><strong>2. Uso de la Plataforma</strong><br>
-        El usuario acepta que el uso de esta página es únicamente para actividades relacionadas con el proyecto académico.
-        Queda prohibido utilizar el sitio para:
+        <!-- Título -->
+        <h2>Términos y Condiciones de Uso de la Plataforma Académica</h2>
 
-        Actividades comerciales
+        <!-- CONTENIDO NUEVO -->
+        <div id="contenido-terminos">
 
-        Distribución de información falsa
+            <h3>1. Definiciones</h3>
+            <p>
+                Para efectos de este documento:
+                <br><br>
+                <strong>“Plataforma”</strong>: Sitio web desarrollado con fines académicos para la demostración de técnicas de programación y administración de datos.
+                <br>
+                <strong>“Usuario”</strong>: Persona que accede, utiliza o interactúa con la Plataforma.
+                <br>
+                <strong>“Desarrollador”</strong>: Autor del proyecto, responsable del diseño y funcionamiento técnico del sistema.
+                <br>
+                <strong>“Datos Personales”</strong>: Información ingresada por el Usuario, incluyendo nombre, apellidos, matrícula, usuario y contraseña.
+            </p>
 
-        Acciones que afecten la integridad del sistema
+            <h3>2. Propósito y Alcance del Proyecto</h3>
+            <p>
+                La Plataforma ha sido creada exclusivamente con fines educativos como parte de un proyecto académico.
+                No constituye un sistema oficial de la institución educativa, ni reemplaza plataformas administrativas reales.
+                La información ingresada no se utiliza para trámites escolares, evaluaciones, registros oficiales ni procesos administrativos.
+            </p>
 
-        Cualquier uso distinto al propósito educativo del proyecto</p>
+            <h3>3. Uso Permitido</h3>
+            <p>
+                El Usuario acepta que la Plataforma debe utilizarse únicamente para actividades relacionadas con el aprendizaje y la demostración técnica.
+                Queda prohibido:
+                <br><br>
+                • Utilizar la Plataforma para fines comerciales o institucionales<br>
+                • Intentar acceder a sistemas externos o bases de datos reales<br>
+                • Manipular el sistema con fines maliciosos<br>
+                • Proporcionar información personal real sin consentimiento
+            </p>
 
-        <p><strong>3. Información Proporcionada por el Usuario</strong><br>
-        El sitio puede solicitar datos como:
+            <h3>4. Administración y Naturaleza de los Datos</h3>
+            <p>
+                La Plataforma permite registrar información con fines de demostración técnica.
+                Los datos ingresados pueden ser reales, ficticios o simulados.
+                La Plataforma no valida la información contra sistemas oficiales ni bases de datos institucionales.
+                <br><br>
+                <strong>No se realiza tratamiento formal de datos personales conforme a la legislación vigente</strong>,
+                dado que el proyecto no constituye un servicio real ni un sistema productivo.
+            </p>
 
-        Nombre
+            <h3>5. Seguridad y Limitaciones Técnicas</h3>
+            <p>
+                Debido a su naturaleza académica:
+                <br><br>
+                • Puede contener errores o fallos técnicos<br>
+                • No garantiza disponibilidad continua<br>
+                • No implementa protocolos avanzados de seguridad<br>
+                • No asegura cifrado completo de la información<br>
+                • No está diseñada para manejar datos sensibles o confidenciales
+                <br><br>
+                El Usuario reconoce estas limitaciones y utiliza la Plataforma bajo su propio criterio académico.
+            </p>
 
-        Apellidos
+            <h3>6. Conservación y Eliminación de Datos</h3>
+            <p>
+                Los datos ingresados:
+                <br><br>
+                • No se almacenan con fines institucionales<br>
+                • No se comparten con terceros<br>
+                • No se utilizan para análisis externos<br>
+                • Pueden ser eliminados en cualquier momento por el Desarrollador<br>
+                • Serán eliminados al finalizar el proyecto académico
+            </p>
 
-        Matrícula
+            <h3>7. Derechos del Usuario</h3>
+            <p>
+                El Usuario tiene derecho a:
+                <br><br>
+                • Solicitar la eliminación de los datos ingresados<br>
+                • Utilizar información ficticia en lugar de datos reales<br>
+                • Abstenerse de proporcionar información personal sensible
+            </p>
 
-        Usuario
+            <h3>8. Responsabilidad del Usuario</h3>
+            <p>
+                El Usuario es responsable de:
+                <br><br>
+                • La veracidad de los datos que ingresa<br>
+                • No proporcionar información personal sin consentimiento<br>
+                • No utilizar la Plataforma para fines distintos a los académicos
+            </p>
 
-        Contraseña
+            <h3>9. Limitación de Responsabilidad del Desarrollador</h3>
+            <p>
+                El Desarrollador no será responsable por:
+                <br><br>
+                • El uso indebido de la Plataforma<br>
+                • La introducción de datos reales sin autorización<br>
+                • Fallos técnicos, interrupciones o pérdida de información<br>
+                • Daños derivados del uso de la Plataforma fuera del contexto académico
+            </p>
 
-        Estos datos se utilizan únicamente para demostrar el funcionamiento técnico del sistema (registro, validación, almacenamiento y manejo de información).
+            <h3>10. Modificaciones</h3>
+            <p>
+                El Desarrollador puede modificar el contenido, diseño o funcionamiento de la Plataforma sin previo aviso,
+                como parte del proceso de aprendizaje y mejora continua.
+            </p>
 
-        No se utilizarán para ningún fin externo, comercial, administrativo o institucional.</p>
+            <h3>11. Aceptación de los Términos</h3>
+            <p>
+                Al utilizar la Plataforma, el Usuario reconoce haber leído y aceptado estos Términos y Condiciones.
+                Si el Usuario no está de acuerdo, deberá abstenerse de utilizar la Plataforma.
+            </p>
 
-        <p><strong>4. Protección y Manejo de Datos</strong><br>
-        Los datos ingresados:
+        </div>
 
-        No serán compartidos con terceros
-
-        No serán utilizados para identificar al usuario fuera del contexto académico
-
-        No serán almacenados con fines de análisis, venta o distribución
-
-        No serán vinculados con información real de sistemas institucionales
-
-        Toda la información es manejada dentro de un entorno controlado y con fines de aprendizaje.</p>
-
-        <p><strong>5. Limitación de Responsabilidad</strong><br>
-        Debido a que el sitio es parte de un proyecto académico:
-
-        Puede contener errores técnicos
-
-        Puede presentar fallos en la conexión o funcionamiento
-
-        No garantiza disponibilidad continua
-
-        No debe considerarse como un sistema oficial de gestión escolar
-
-        El desarrollador no se hace responsable por el uso indebido del sitio fuera del contexto educativo.</p>
-
-        <p><strong>6. Modificaciones al Sistema</strong><br>
-        El contenido, diseño y funcionamiento del sitio pueden cambiar en cualquier momento sin previo aviso, ya que forma parte de un proceso de aprendizaje y mejora continua.</p>
-
-        <p><strong>7. Aceptación de los Términos</strong><br>
-        Al utilizar este sitio web, el usuario reconoce haber leído y aceptado estos Términos y Condiciones.
-        Si el usuario no está de acuerdo con ellos, deberá abstenerse de utilizar la plataforma.</p>
-
-        <!-- Más secciones de términos -->
-
-        <!-- Botón de aceptar -->
+        <!-- Botón aceptar -->
         <button class="btn-terminos" onclick="document.getElementById('modalTerminos').style.display='none'">
             Aceptar
         </button>
+
     </div>
 </div>
 
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
-    <script src="../public/global/main.js"></script>
+    <script src="/global/main.js"></script>
 
     <!-- JS LOCAL (carrusel) -->
     <script src="index.js"></script>

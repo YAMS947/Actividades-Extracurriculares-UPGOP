@@ -5,6 +5,8 @@ const express = require('express'); // Framework para crear el servidor
 const path = require('path'); // Manejo de rutas de archivos 
 const db = require('./db'); // conexión MySQL
 const app = express(); // Inicializa la app de express
+const cors = require('cors');
+
 
 // ===============================
 //  MIDDLEWARES

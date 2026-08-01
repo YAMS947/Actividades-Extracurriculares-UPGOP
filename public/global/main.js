@@ -7,7 +7,7 @@ const menu = document.getElementById("menu-hamb");
 function construirMenu() {
     menu.innerHTML = "";
 
-    const inicio = crearItem(userName, "../public/Pages/P_Inicio_De_Sesion/inicioSesion.html");
+    const inicio = crearItem(userName, "/Pages/P_Inicio_De_Sesion/inicioSesion.html");
     menu.appendChild(inicio);
 
     if (userType === "NONE") return;
