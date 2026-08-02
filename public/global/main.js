@@ -1,24 +1,22 @@
-// Solo construimos el menú, ya no manejamos hover con JS
-const userType = localStorage.getItem("userType") || "NONE";
-const userName = localStorage.getItem("userName") || "Iniciar sesión";
+const user = getUser();
 
 const menu = document.getElementById("menu-hamb");
 
 function construirMenu() {
     menu.innerHTML = "";
 
-    const inicio = crearItem(userName, "/Pages/P_Inicio_De_Sesion/inicioSesion.html");
+    const inicio = crearItem(user.userName, "/Pages/P_Inicio_De_Sesion/inicioSesion.html");
     menu.appendChild(inicio);
 
-    if (userType === "NONE") return;
+    if (user.userType === "NONE") return;
 
-    if (userType === "ALUM") {
+    if (user.userType === "ALUM") {
         menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
         menu.appendChild(crearItem("Mis datos", "/Pages/P_Gestion_De_Alumno/alumno.html"));
         menu.appendChild(crearCerrarSesion());
     }
 
-    if (userType === "INST") {
+    if (user.userType === "INST") {
         menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
         menu.appendChild(crearItem("Alumnos", "/Pages/P_Gestion_De_Alumnos/alumnos.html"));
         menu.appendChild(crearItem("Solicitudes", "/Pages/P_Solicitudes/solicitudes.html"));
@@ -26,7 +24,7 @@ function construirMenu() {
         menu.appendChild(crearCerrarSesion());
     }
 
-    if (userType === "GEST") {
+    if (user.userType === "GEST") {
         menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
         menu.appendChild(crearItem("Alumnos", "/Pages/P_Gestion_De_Alumnos/alumnos.html"));
         menu.appendChild(crearItem("Instructores", "/Pages/P_Gestion_De_Instructores/instructores.html"));
@@ -52,7 +50,7 @@ function crearCerrarSesion() {
         if (confirm("¿Deseas cerrar sesión?")) {
             localStorage.setItem("userType", "NONE");
             localStorage.setItem("userName", "Iniciar sesión");
-            location.href = "/P_Principal/index.html";
+            location.href = "/";
         }
     };
     return a;

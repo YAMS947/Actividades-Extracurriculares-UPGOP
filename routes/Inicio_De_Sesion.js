@@ -178,26 +178,9 @@ router.post('/registro-alumno', (req, res) => {
                         return res.status(500).json({ error: "error_registro_matricula" });
                     }
 
-                    // ============================================================
-                    // 4. Insertar fecha de ingreso
-                    // ============================================================
-                    const fechaActual = new Date();
-
-                    const sqlInsertFecha = `
-                        INSERT INTO fecha_ingreso (id_usuario, fecha)
-                        VALUES (?, ?);
-                    `;
-
-                    db.query(sqlInsertFecha, [id_usuario, fechaActual], (err) => {
-                        if (err) {
-                            console.error("Error al registrar fecha:", err);
-                            return res.status(500).json({ error: "error_registro_fecha" });
-                        }
-
-                        res.json({
-                            mensaje: "registro_exitoso",
-                            id_usuario: id_usuario
-                        });
+                    res.json({
+                    mensaje: "registro_exitoso",
+                    id_usuario: id_usuario
                     });
                 });
             }
