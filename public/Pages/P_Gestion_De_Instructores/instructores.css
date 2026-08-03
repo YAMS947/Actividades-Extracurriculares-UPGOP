@@ -1,0 +1,182 @@
+/* ===============================
+   TÍTULO / BIENVENIDA
+================================ */
+.bienvenida {
+    font-family: "Inter", sans-serif;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 20px;
+    color: #251F9C;
+}
+
+/* ===============================
+   ACCIONES SUPERIORES
+================================ */
+.acciones-superiores button {
+    margin-left: 10px;
+}
+
+/* ===============================
+   BOTONES
+================================ */
+.btn-azul {
+    background-color: #0900FF;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-rojo {
+    background-color: #FF0000;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===============================
+   TABLA DE INSTRUCTORES
+================================ */
+.contenedor-tabla {
+    margin: 20px;
+}
+
+#tablaInstructores {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #3A5B98;
+    color: #DFDFDF;
+    margin-bottom: 200px;
+}
+
+#tablaInstructores th,
+#tablaInstructores td {
+    border: 2px solid #DAA0B0;
+    padding: 10px;
+    text-align: center;
+}
+
+#tablaInstructores tbody tr:hover {
+    background-color: #4E72B8;
+    cursor: pointer;
+}
+
+/* ===============================
+   MODAL ALTA INSTRUCTOR
+================================ */
+.modal-alta {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+
+.modal-alta.oculto {
+    display: none;
+}
+
+.modal-card {
+    background-color: #C1D5FB;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.cerrar-modal {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+}
+
+.grupo {
+    margin-bottom: 12px;
+}
+
+.grupo label {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.grupo input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #999;
+}
+
+/* ===============================
+   MENÚ DE TALLERES (modal)
+================================ */
+#menuTalleresInst {
+    position: absolute;
+    background-color: #D0305C;
+    padding: 10px;
+    border-radius: 8px;
+    color: #D9D9D9;
+    width: 200px;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+.menu-talleres div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.menu-talleres div:hover {
+    color: #0900FF;
+}
+
+/* ===============================
+   BOTONES DEL MODAL
+================================ */
+.fila-botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+/* ===============================
+   AVISO INSTRUCTOR REGISTRADO
+================================ */
+.aviso-inscrito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aviso-inscrito.oculto {
+    display: none;
+}
+
+.aviso-card {
+    background-color: #FBF9C1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* ===============================
+   OCULTO
+================================ */
+.oculto {
+    display: none;
+}

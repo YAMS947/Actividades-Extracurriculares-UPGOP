@@ -44,7 +44,32 @@
 </header>
 
 <!-- Inicio del contenido del cuerpo de la página -->
+<div class="bienvenida">
+    Instructores
+</div>
 
+<div class="acciones-superiores">
+    <button id="btnDocumento" class="btn-azul">Documento</button>
+    <button id="btnAltaInstructor" class="btn-rojo">Dar de alta</button>
+</div>
+
+<section class="contenedor-tabla">
+
+    <table id="tablaInstructores">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Taller</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Filas dinámicas -->
+        </tbody>
+    </table>
+
+</section>
 <!-- Fin del contenido del cuerpo de la página -->
 
 <!-- Pie de página -->
@@ -133,6 +158,68 @@
     </div>
 
 </footer>
+
+<!-- Modal Dar de alta instructor -->
+<div id="modalAltaInstructor" class="modal-alta oculto">
+
+    <div class="modal-card">
+        <span id="cerrarAltaInstructor" class="cerrar-modal">X</span>
+
+        <h2>Dar de alta instructor</h2>
+
+        <div class="grupo">
+            <label>Nombre(s)</label>
+            <input type="text" id="instNombre">
+        </div>
+
+        <div class="grupo">
+            <label>Apellido paterno</label>
+            <input type="text" id="instApellidoP">
+        </div>
+
+        <div class="grupo">
+            <label>Apellido materno</label>
+            <input type="text" id="instApellidoM">
+        </div>
+
+        <div class="grupo">
+            <label>Usuario</label>
+            <input type="text" id="instUsuario">
+        </div>
+
+        <div class="grupo">
+            <label>Contraseña</label>
+            <input type="password" id="instPassword">
+        </div>
+
+        <div class="grupo">
+            <label>Confirmar contraseña</label>
+            <input type="password" id="instPassword2">
+        </div>
+
+        <div class="grupo">
+            <label>Taller</label>
+            <button id="btnSeleccionarTallerInst" class="btn-azul">Seleccionar taller</button>
+            <p id="tallerSeleccionadoInst" class="taller-seleccionado"></p>
+        </div>
+
+        <div id="menuTalleresInst" class="menu-talleres oculto"></div>
+
+        <div class="fila-botones">
+            <button id="btnConfirmarAltaInstructor" class="btn-azul">Confirmar</button>
+            <button id="btnCancelarAltaInstructor" class="btn-rojo">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Aviso instructor registrado -->
+<div id="avisoInstructorRegistrado" class="aviso-inscrito oculto">
+    <div class="aviso-card">
+        <h3>Instructor registrado</h3>
+        <button id="btnAceptarAvisoInstructor" class="btn-azul">Aceptar</button>
+    </div>
+</div>
 
 <!-- Modal de Términos y Condiciones -->
 <div id="modalTerminos" class="modal">
@@ -262,11 +349,14 @@
     </div>
 </div>
 
+    <!-- JS GLOBAL (autenticación del usuario) -->
+    <script src="/global/auth.js"></script>
+
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
     <script src="/global/main.js"></script>
 
     <!-- JS LOCAL -->
-    <script src=""></script>
+    <script src="instructores.js"></script>
 
 </body>
 </html>

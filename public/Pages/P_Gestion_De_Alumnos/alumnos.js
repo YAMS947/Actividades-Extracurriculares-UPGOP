@@ -8,7 +8,6 @@ if (!isLoggedIn()) {
 
 const usuario = getUser();
 
-console.log(usuario)
 if (usuario.userType === "ALUM") {
     window.location.href = "/";
 }
@@ -33,7 +32,6 @@ const btnAceptarAviso = document.getElementById("btnAceptarAviso");
 
 let tallerSeleccionado = null;
 
-console.log(usuario)
 // ===============================
 // 3. Cargar talleres (solo GEST)
 // ===============================
@@ -120,7 +118,6 @@ btnAlta.onclick = () => {
     modalAlta.classList.remove("oculto");
     if (usuario.userType === "INST") {
     tallerSeleccionado = usuario.userTallerId; // el ID del taller del instructor
-    console.log("Cuando se abre el modal: ", tallerSeleccionado)
     document.getElementById("tallerSeleccionado").textContent = usuario.userTallerNombre;
     }
 }
@@ -160,7 +157,6 @@ btnConfirmarAlta.onclick = async () => {
         return;
     }
 
-    console.log("Insertando taller: ", tallerSeleccionado);
     const res = await fetch("/gestion-alumnos/alta", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

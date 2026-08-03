@@ -159,7 +159,6 @@ router.post('/alta', (req, res) => {
         contrasena,
         id_taller
     } = req.body;
-    console.log(id_taller)
 
     if (!nombre || !apellido_paterno || !apellido_materno ||
         !matricula || !usuario || !contrasena || !id_taller) {

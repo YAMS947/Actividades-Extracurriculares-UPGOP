@@ -73,7 +73,6 @@ document.getElementById("btnLogin").onclick = async () => {
             mostrarError(data.error || "Usuario o contraseña incorrectos.");
             return;
         }
-        console.log(data)
         // Guardar en localStorage
         if (data.tipo_usuario === "GEST") {
             setUser({

@@ -38,31 +38,12 @@ router.get('/talleres', (req, res) => {
 });
 
 
-// ============================================================
-// 2. OBTENER LISTA DE INSTRUCTORES
-// ------------------------------------------------------------
-// POST /gestion-instructores/lista
-//
-// Body:
-//   {
-//     "tipo_usuario": "GEST",
-//     "id_taller": 3
-//   }
-//
-// Lógica:
-//   - Solo gestores pueden ver instructores.
-//   - Se obtiene la lista de instructores del taller seleccionado.
-// ============================================================
 router.post('/lista', (req, res) => {
 
-    const { tipo_usuario, id_taller } = req.body;
+    const { tipo_usuario } = req.body;
 
     if (!tipo_usuario || tipo_usuario !== "GEST") {
         return res.status(403).json({ error: "no_autorizado" });
-    }
-
-    if (!id_taller) {
-        return res.status(400).json({ error: "falta_id_taller" });
     }
 
     const sqlLista = `
@@ -75,11 +56,10 @@ router.post('/lista', (req, res) => {
             ON usuarios.id_usuario = taller_usuario.id_usuario
         INNER JOIN taller
             ON taller_usuario.id_taller = taller.id_taller
-        WHERE usuarios.tipo_usuario = "INST"
-        AND taller.id_taller = ?;
+        WHERE usuarios.tipo_usuario = "INST";
     `;
 
-    db.query(sqlLista, [id_taller], (err, result) => {
+    db.query(sqlLista, (err, result) => {
         if (err) {
             console.error("Error al obtener lista de instructores:", err);
             return res.status(500).json({ error: "error_obtener_lista" });
@@ -91,6 +71,7 @@ router.post('/lista', (req, res) => {
         });
     });
 });
+
 
 
 // ============================================================
