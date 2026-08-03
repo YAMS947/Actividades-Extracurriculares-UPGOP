@@ -47,7 +47,7 @@ router.post('/datos', (req, res) => {
         nombre,
         apellido_paterno,
         apellido_materno,
-        matricula
+        matricula,
     } = req.body;
 
     if (!tipo_usuario) {
@@ -55,7 +55,7 @@ router.post('/datos', (req, res) => {
     }
 
     // ============================================================
-    // FUNCIÓN AUXILIAR: Obtener datos del alumno + carreras
+    // FUNCIÓN AUXILIAR: Obtener datos completos del alumno
     // ============================================================
     function obtenerDatosAlumno(idAlumno) {
 
@@ -65,21 +65,38 @@ router.post('/datos', (req, res) => {
                 usuarios.nombre,
                 usuarios.apellido_paterno,
                 usuarios.apellido_materno,
-                matricula_usuario.matricula,
                 carrera_usuario.id_carrera,
+                carrera.nombre_carrera,
                 grado_usuario.grado,
-                usuarios.telefono
+                matricula_usuario.matricula,
+                taller.nombre_taller,
+                usuarios.telefono,
+                fecha_ingreso.fecha AS fecha_ingreso,
+
+                -- Asistencias actuales
+                (SELECT COUNT(id_dia)
+                 FROM asistencia
+                 WHERE id_usuario = ?) AS dias_asistidos,
+
+                -- Asistencias totales
+                (SELECT COUNT(id_dia)
+                 FROM dia_activo
+                 WHERE fecha > (SELECT fecha FROM fecha_ingreso WHERE id_usuario = ?)
+                 AND id_taller = (SELECT id_taller FROM fecha_ingreso WHERE id_usuario = ?)
+                ) AS dias_totales
+
             FROM usuarios
-            LEFT JOIN matricula_usuario
-                ON usuarios.id_usuario = matricula_usuario.id_usuario
-            LEFT JOIN carrera_usuario
-                ON usuarios.id_usuario = carrera_usuario.id_usuario
-            LEFT JOIN grado_usuario
-                ON usuarios.id_usuario = grado_usuario.id_usuario
+            LEFT JOIN carrera_usuario ON usuarios.id_usuario = carrera_usuario.id_usuario
+            LEFT JOIN carrera ON carrera_usuario.id_carrera = carrera.id_carrera
+            LEFT JOIN grado_usuario ON usuarios.id_usuario = grado_usuario.id_usuario
+            LEFT JOIN matricula_usuario ON usuarios.id_usuario = matricula_usuario.id_usuario
+            LEFT JOIN taller_usuario ON usuarios.id_usuario = taller_usuario.id_usuario
+            LEFT JOIN taller ON taller_usuario.id_taller = taller.id_taller
+            LEFT JOIN fecha_ingreso ON usuarios.id_usuario = fecha_ingreso.id_usuario
             WHERE usuarios.id_usuario = ?;
         `;
 
-        db.query(sqlDatos, [idAlumno], (err, resultAlumno) => {
+        db.query(sqlDatos, [idAlumno, idAlumno, idAlumno, idAlumno], (err, resultAlumno) => {
             if (err) {
                 console.error("Error al obtener datos del alumno:", err);
                 return res.status(500).json({ error: "error_obtener_datos" });
@@ -129,7 +146,7 @@ router.post('/datos', (req, res) => {
     // ============================================================
     if (tipo_usuario === "GEST" || tipo_usuario === "INST") {
 
-        if (!nombre || !apellido_paterno || !apellido_materno || !matricula) {
+        if (!matricula) {
             return res.status(400).json({ error: "faltan_datos_busqueda" });
         }
 
@@ -138,14 +155,10 @@ router.post('/datos', (req, res) => {
             FROM usuarios
             INNER JOIN matricula_usuario
                 ON usuarios.id_usuario = matricula_usuario.id_usuario
-            WHERE usuarios.nombre = ?
-            AND usuarios.apellido_paterno = ?
-            AND usuarios.apellido_materno = ?
-            AND matricula_usuario.matricula = ?;
+            WHERE matricula_usuario.matricula = ?;
         `;
 
-        db.query(sqlBuscar,
-            [nombre, apellido_paterno, apellido_materno, matricula],
+        db.query(sqlBuscar, [matricula],
             (err, result) => {
 
                 if (err) {
@@ -168,6 +181,7 @@ router.post('/datos', (req, res) => {
 
     return res.status(403).json({ error: "no_autorizado" });
 });
+
 
 // ============================================================
 // 2. DAR DE BAJA AL ALUMNO (ELIMINAR SU TALLER)
@@ -259,16 +273,16 @@ router.post('/actualizar', (req, res) => {
     function continuarConActualizacion(idAlumno) {
 
         // ============================================================
-        // 2. UPDATE directo en usuarios (siempre)
+        // 2. UPDATE en usuarios (sin matrícula)
         // ============================================================
         const sqlUpdateUsuario = `
             UPDATE usuarios
-            SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, matricula = ?, telefono = ?
+            SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, telefono = ?
             WHERE id_usuario = ?;
         `;
 
         db.query(sqlUpdateUsuario,
-            [nombre, apellido_paterno, apellido_materno, matricula_nueva, telefono, idAlumno],
+            [nombre, apellido_paterno, apellido_materno, telefono, idAlumno],
             (err) => {
                 if (err) {
                     console.error("Error al actualizar usuario:", err);
@@ -276,38 +290,68 @@ router.post('/actualizar', (req, res) => {
                 }
 
                 // ============================================================
-                // 3. UPSERT carrera_usuario
+                // 3. UPDATE/INSERT matrícula_usuario
                 // ============================================================
-                const sqlCheckCarrera = `
-                    SELECT id_carrera FROM carrera_usuario WHERE id_usuario = ?;
+                const sqlCheckMatricula = `
+                    SELECT matricula FROM matricula_usuario WHERE id_usuario = ?;
                 `;
 
-                db.query(sqlCheckCarrera, [idAlumno], (err, resultCarrera) => {
+                db.query(sqlCheckMatricula, [idAlumno], (err, resultMat) => {
                     if (err) {
-                        console.error("Error al verificar carrera:", err);
-                        return res.status(500).json({ error: "Error al verificar carrera" });
+                        console.error("Error al verificar matrícula:", err);
+                        return res.status(500).json({ error: "Error al verificar matrícula" });
                     }
 
-                    if (resultCarrera.length === 0) {
+                    if (resultMat.length === 0) {
                         // INSERT
-                        const sqlInsertCarrera = `
-                            INSERT INTO carrera_usuario (id_usuario, id_carrera)
+                        const sqlInsertMatricula = `
+                            INSERT INTO matricula_usuario (id_usuario, matricula)
                             VALUES (?, ?);
                         `;
-                        db.query(sqlInsertCarrera, [idAlumno, id_carrera]);
+                        db.query(sqlInsertMatricula, [idAlumno, matricula_nueva]);
                     } else {
                         // UPDATE
-                        const sqlUpdateCarrera = `
-                            UPDATE carrera_usuario
-                            SET id_carrera = ?
+                        const sqlUpdateMatricula = `
+                            UPDATE matricula_usuario
+                            SET matricula = ?
                             WHERE id_usuario = ?;
                         `;
-                        db.query(sqlUpdateCarrera, [id_carrera, idAlumno]);
+                        db.query(sqlUpdateMatricula, [matricula_nueva, idAlumno]);
                     }
                 });
 
+                // 3. UPSERT carrera_usuario
+                if (id_carrera) {
+                    const sqlCheckCarrera = `
+                        SELECT id_carrera FROM carrera_usuario WHERE id_usuario = ?;
+                    `;
+
+                    db.query(sqlCheckCarrera, [idAlumno], (err, resultCarrera) => {
+                        if (err) {
+                            console.error("Error al verificar carrera:", err);
+                            return res.status(500).json({ error: "Error al verificar carrera" });
+                        }
+
+                        if (resultCarrera.length === 0) {
+                            const sqlInsertCarrera = `
+                                INSERT INTO carrera_usuario (id_usuario, id_carrera)
+                                VALUES (?, ?);
+                            `;
+                            db.query(sqlInsertCarrera, [idAlumno, id_carrera]);
+                        } else {
+                            const sqlUpdateCarrera = `
+                                UPDATE carrera_usuario
+                                SET id_carrera = ?
+                                WHERE id_usuario = ?;
+                            `;
+                            db.query(sqlUpdateCarrera, [id_carrera, idAlumno]);
+                        }
+                    });
+}
+
+
                 // ============================================================
-                // 4. UPSERT grado_usuario
+                // 5. UPSERT grado_usuario
                 // ============================================================
                 const sqlCheckGrado = `
                     SELECT grado FROM grado_usuario WHERE id_usuario = ?;
@@ -336,7 +380,7 @@ router.post('/actualizar', (req, res) => {
                 });
 
                 // ============================================================
-                // 5. RESPUESTA FINAL
+                // 6. RESPUESTA FINAL
                 // ============================================================
                 res.json({
                     mensaje: "Datos del alumno actualizados correctamente"
@@ -365,7 +409,7 @@ router.post('/actualizar', (req, res) => {
         }
 
         const sqlBuscarAlumno = `
-            SELECT id_usuario
+            SELECT usuarios.id_usuario
             FROM usuarios
             INNER JOIN matricula_usuario
                 ON usuarios.id_usuario = matricula_usuario.id_usuario
@@ -395,5 +439,6 @@ router.post('/actualizar', (req, res) => {
     // ============================================================
     return res.status(403).json({ error: "No tienes permiso para actualizar datos" });
 });
+
 
 module.exports = router;
