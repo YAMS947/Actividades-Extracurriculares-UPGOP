@@ -1,0 +1,23 @@
+.mantenimiento {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    color: #333;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+}
+
+.mantenimiento h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #251F9C;
+}
+
+.mantenimiento p {
+    font-size: 20px;
+    color: #555;
+}
