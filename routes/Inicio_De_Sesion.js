@@ -21,7 +21,6 @@ const db = require('../db');
 // - nombre_taller (si aplica)
 // ============================================================
 router.post('/', (req, res) => {
-
     // Extraemos usuario y contraseña del body
     const { usuario, contrasena } = req.body;
 
@@ -53,7 +52,7 @@ router.post('/', (req, res) => {
         // Si el usuario es GESTOR, no tiene taller asignado
         if (user.tipo_usuario === "GEST") {
             return res.json({
-                mensaje: "Inicio de sesión exitoso",
+                mensaje: "Inicio de sesión exitoso 3",
                 id_usuario: user.id_usuario,
                 tipo_usuario: user.tipo_usuario
             });
@@ -79,7 +78,7 @@ router.post('/', (req, res) => {
             // Si no tiene taller asignado (caso raro)
             if (tallerResult.length === 0) {
                 return res.json({
-                    mensaje: "Inicio de sesión exitoso",
+                    mensaje: "Inicio de sesión exitoso 2",
                     id_usuario: user.id_usuario,
                     tipo_usuario: user.tipo_usuario,
                     id_taller: null,
@@ -89,13 +88,12 @@ router.post('/', (req, res) => {
 
             // Taller encontrado
             const taller = tallerResult[0];
-
             res.json({
-                mensaje: "Inicio de sesión exitoso",
+                mensaje: "Inicio de sesión exitoso 1",
                 id_usuario: user.id_usuario,
                 tipo_usuario: user.tipo_usuario,
-                id_taller: taller.id_taller,
-                nombre_taller: taller.nombre_taller
+                id_taller: user.id_taller,
+                nombre_taller: user.nombre_taller
             });
         });
     });
@@ -180,7 +178,7 @@ router.post('/registro-alumno', (req, res) => {
 
                     res.json({
                     mensaje: "registro_exitoso",
-                    id_usuario: id_usuario
+                    id_usuario: user.id_usuario
                     });
                 });
             }

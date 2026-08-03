@@ -156,11 +156,13 @@ router.post('/alta', (req, res) => {
         apellido_materno,
         matricula,
         usuario,
-        contrasena
+        contrasena,
+        id_taller
     } = req.body;
+    console.log(id_taller)
 
     if (!nombre || !apellido_paterno || !apellido_materno ||
-        !matricula || !usuario || !contrasena) {
+        !matricula || !usuario || !contrasena || !id_taller) {
         return res.status(400).json({ error: "faltan_datos" });
     }
 
@@ -220,23 +222,38 @@ router.post('/alta', (req, res) => {
                     // ============================================================
                     // 4. Insertar fecha de ingreso
                     // ============================================================
-                    const fechaActual = new Date();
 
                     const sqlInsertFecha = `
-                        INSERT INTO fecha_ingreso (id_usuario, fecha)
+                        INSERT INTO fecha_ingreso (id_usuario, id_taller)
                         VALUES (?, ?);
                     `;
 
-                    db.query(sqlInsertFecha, [id_usuario, fechaActual], (err) => {
+                    db.query(sqlInsertFecha, [id_usuario, id_taller], (err) => {
                         if (err) {
                             console.error("Error al registrar fecha:", err);
                             return res.status(500).json({ error: "error_registro_fecha" });
                         }
 
-                        res.json({
-                            mensaje: "registro_exitoso",
-                            id_usuario: id_usuario
-                        });
+                            // =======================================================
+                            // 5. Insertar taller
+                            // =======================================================
+
+                            const sqlInsertTaller = `
+                                INSERT INTO taller_usuario (id_usuario, id_taller)
+                                VALUES (?, ?);
+                            `;
+
+                            db.query(sqlInsertTaller, [id_usuario, id_taller], (err) => {
+                                if (err) {
+                                    console.error("Error al registrar el taller:", err);
+                                    return res.status(500).json({ error: "error_r_egistrotaller" });
+                                }
+
+                                res.json({
+                                    mensaje: "registro_exitoso",
+                                    id_usuario: id_usuario
+                                });
+                            });
                     });
                 });
             }

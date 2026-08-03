@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8"> <!-- Codificación de caracteres (permite acentos y ñ) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
-    <title></title> <!-- Título de la pestaña del navegador -->
+    <title>Gestión de Alumnos AE UPGOP</title> <!-- Título de la pestaña del navegador -->
     
     <!-- Conexión al archivo CSS externo -->
     <link rel="stylesheet" href="/global/main.css">
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="alumnos.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -44,6 +44,37 @@
 </header>
 
 <!-- Inicio del contenido del cuerpo de la página -->
+<div class="bienvenida">
+    Alumnos
+</div>
+
+    <div class="acciones-superiores">
+        <button id="btnTaller" class="btn-azul">Taller</button>
+        <button id="btnDocumento" class="btn-azul">Documento</button>
+        <button id="btnAlta" class="btn-rojo">Dar de alta</button>
+    </div>
+
+    <!-- Menú de talleres -->
+    <div id="menuTalleres" class="menu-talleres oculto"></div>
+
+<section class="contenedor-tabla">
+
+        <table id="tablaAlumnos">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Taller</th>
+                    <th>Matrícula</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Filas dinámicas -->
+            </tbody>
+        </table>
+
+    </section>
 
 <!-- Fin del contenido del cuerpo de la página -->
 
@@ -134,139 +165,209 @@
 
 </footer>
 
-<!-- Modal de Términos y Condiciones -->
-<div id="modalTerminos" class="modal">
-    <div class="modal-content">
+    <!-- Modal Dar de alta -->
+    <div id="modalAlta" class="modal-alta oculto">
 
-        <!-- Botón cerrar -->
-        <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span>
+        <div class="modal-card">
+            <span id="cerrarAlta" class="cerrar-modal">X</span>
 
-        <!-- Título -->
-        <h2>Términos y Condiciones de Uso de la Plataforma Académica</h2>
+            <h2>Dar de alta</h2>
 
-        <!-- CONTENIDO NUEVO -->
-        <div id="contenido-terminos">
+            <div class="grupo">
+                <label>Nombre(s)</label>
+                <input type="text" id="altaNombre">
+            </div>
 
-            <h3>1. Definiciones</h3>
-            <p>
-                Para efectos de este documento:
-                <br><br>
-                <strong>“Plataforma”</strong>: Sitio web desarrollado con fines académicos para la demostración de técnicas de programación y administración de datos.
-                <br>
-                <strong>“Usuario”</strong>: Persona que accede, utiliza o interactúa con la Plataforma.
-                <br>
-                <strong>“Desarrollador”</strong>: Autor del proyecto, responsable del diseño y funcionamiento técnico del sistema.
-                <br>
-                <strong>“Datos Personales”</strong>: Información ingresada por el Usuario, incluyendo nombre, apellidos, matrícula, usuario y contraseña.
-            </p>
+            <div class="grupo">
+                <label>Apellido paterno</label>
+                <input type="text" id="altaApellidoP">
+            </div>
 
-            <h3>2. Propósito y Alcance del Proyecto</h3>
-            <p>
-                La Plataforma ha sido creada exclusivamente con fines educativos como parte de un proyecto académico.
-                No constituye un sistema oficial de la institución educativa, ni reemplaza plataformas administrativas reales.
-                La información ingresada no se utiliza para trámites escolares, evaluaciones, registros oficiales ni procesos administrativos.
-            </p>
+            <div class="grupo">
+                <label>Apellido materno</label>
+                <input type="text" id="altaApellidoM">
+            </div>
 
-            <h3>3. Uso Permitido</h3>
-            <p>
-                El Usuario acepta que la Plataforma debe utilizarse únicamente para actividades relacionadas con el aprendizaje y la demostración técnica.
-                Queda prohibido:
-                <br><br>
-                • Utilizar la Plataforma para fines comerciales o institucionales<br>
-                • Intentar acceder a sistemas externos o bases de datos reales<br>
-                • Manipular el sistema con fines maliciosos<br>
-                • Proporcionar información personal real sin consentimiento
-            </p>
+            <div class="grupo">
+                <label>Matrícula</label>
+                <input type="text" id="altaMatricula">
+            </div>
 
-            <h3>4. Administración y Naturaleza de los Datos</h3>
-            <p>
-                La Plataforma permite registrar información con fines de demostración técnica.
-                Los datos ingresados pueden ser reales, ficticios o simulados.
-                La Plataforma no valida la información contra sistemas oficiales ni bases de datos institucionales.
-                <br><br>
-                <strong>No se realiza tratamiento formal de datos personales conforme a la legislación vigente</strong>,
-                dado que el proyecto no constituye un servicio real ni un sistema productivo.
-            </p>
+            <div class="grupo">
+                <label>Usuario</label>
+                <input type="text" id="altaUsuario">
+            </div>
 
-            <h3>5. Seguridad y Limitaciones Técnicas</h3>
-            <p>
-                Debido a su naturaleza académica:
-                <br><br>
-                • Puede contener errores o fallos técnicos<br>
-                • No garantiza disponibilidad continua<br>
-                • No implementa protocolos avanzados de seguridad<br>
-                • No asegura cifrado completo de la información<br>
-                • No está diseñada para manejar datos sensibles o confidenciales
-                <br><br>
-                El Usuario reconoce estas limitaciones y utiliza la Plataforma bajo su propio criterio académico.
-            </p>
+            <div class="grupo">
+                <label>Contraseña</label>
+                <input type="password" id="altaPassword">
+            </div>
 
-            <h3>6. Conservación y Eliminación de Datos</h3>
-            <p>
-                Los datos ingresados:
-                <br><br>
-                • No se almacenan con fines institucionales<br>
-                • No se comparten con terceros<br>
-                • No se utilizan para análisis externos<br>
-                • Pueden ser eliminados en cualquier momento por el Desarrollador<br>
-                • Serán eliminados al finalizar el proyecto académico
-            </p>
+            <div class="grupo">
+                <label>Confirmar contraseña</label>
+                <input type="password" id="altaPassword2">
+            </div>
 
-            <h3>7. Derechos del Usuario</h3>
-            <p>
-                El Usuario tiene derecho a:
-                <br><br>
-                • Solicitar la eliminación de los datos ingresados<br>
-                • Utilizar información ficticia en lugar de datos reales<br>
-                • Abstenerse de proporcionar información personal sensible
-            </p>
+            <div id="menuTalleresAlta" class="menu-talleres oculto"></div>
 
-            <h3>8. Responsabilidad del Usuario</h3>
-            <p>
-                El Usuario es responsable de:
-                <br><br>
-                • La veracidad de los datos que ingresa<br>
-                • No proporcionar información personal sin consentimiento<br>
-                • No utilizar la Plataforma para fines distintos a los académicos
-            </p>
+            <div class="grupo">
+                <label>Taller</label>
+                <button id="btnSeleccionarTaller" class="btn-azul">Seleccionar taller</button>
+                <p id="tallerSeleccionado" class="taller-seleccionado"></p>
+            </div>
 
-            <h3>9. Limitación de Responsabilidad del Desarrollador</h3>
-            <p>
-                El Desarrollador no será responsable por:
-                <br><br>
-                • El uso indebido de la Plataforma<br>
-                • La introducción de datos reales sin autorización<br>
-                • Fallos técnicos, interrupciones o pérdida de información<br>
-                • Daños derivados del uso de la Plataforma fuera del contexto académico
-            </p>
-
-            <h3>10. Modificaciones</h3>
-            <p>
-                El Desarrollador puede modificar el contenido, diseño o funcionamiento de la Plataforma sin previo aviso,
-                como parte del proceso de aprendizaje y mejora continua.
-            </p>
-
-            <h3>11. Aceptación de los Términos</h3>
-            <p>
-                Al utilizar la Plataforma, el Usuario reconoce haber leído y aceptado estos Términos y Condiciones.
-                Si el Usuario no está de acuerdo, deberá abstenerse de utilizar la Plataforma.
-            </p>
-
+            <div class="fila-botones">
+                <button id="btnConfirmarAlta" class="btn-azul">Confirmar</button>
+                <button id="btnCancelarAlta" class="btn-rojo">Cancelar</button>
+            </div>
         </div>
 
-        <!-- Botón aceptar -->
-        <button class="btn-terminos" onclick="document.getElementById('modalTerminos').style.display='none'">
-            Aceptar
-        </button>
-
     </div>
-</div>
+
+    <!-- Aviso alumno inscrito -->
+    <div id="avisoInscrito" class="aviso-inscrito oculto">
+        <div class="aviso-card">
+            <h3>Alumno inscrito</h3>
+            <button id="btnAceptarAviso" class="btn-azul">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Términos y Condiciones -->
+    <div id="modalTerminos" class="modal">
+        <div class="modal-content">
+
+            <!-- Botón cerrar -->
+            <span class="close" onclick="document.getElementById('modalTerminos').style.display='none'">&times;</span>
+
+            <!-- Título -->
+            <h2>Términos y Condiciones de Uso de la Plataforma Académica</h2>
+
+            <!-- CONTENIDO NUEVO -->
+            <div id="contenido-terminos">
+
+                <h3>1. Definiciones</h3>
+                <p>
+                    Para efectos de este documento:
+                    <br><br>
+                    <strong>“Plataforma”</strong>: Sitio web desarrollado con fines académicos para la demostración de técnicas de programación y administración de datos.
+                    <br>
+                    <strong>“Usuario”</strong>: Persona que accede, utiliza o interactúa con la Plataforma.
+                    <br>
+                    <strong>“Desarrollador”</strong>: Autor del proyecto, responsable del diseño y funcionamiento técnico del sistema.
+                    <br>
+                    <strong>“Datos Personales”</strong>: Información ingresada por el Usuario, incluyendo nombre, apellidos, matrícula, usuario y contraseña.
+                </p>
+
+                <h3>2. Propósito y Alcance del Proyecto</h3>
+                <p>
+                    La Plataforma ha sido creada exclusivamente con fines educativos como parte de un proyecto académico.
+                    No constituye un sistema oficial de la institución educativa, ni reemplaza plataformas administrativas reales.
+                    La información ingresada no se utiliza para trámites escolares, evaluaciones, registros oficiales ni procesos administrativos.
+                </p>
+
+                <h3>3. Uso Permitido</h3>
+                <p>
+                    El Usuario acepta que la Plataforma debe utilizarse únicamente para actividades relacionadas con el aprendizaje y la demostración técnica.
+                    Queda prohibido:
+                    <br><br>
+                    • Utilizar la Plataforma para fines comerciales o institucionales<br>
+                    • Intentar acceder a sistemas externos o bases de datos reales<br>
+                    • Manipular el sistema con fines maliciosos<br>
+                    • Proporcionar información personal real sin consentimiento
+                </p>
+
+                <h3>4. Administración y Naturaleza de los Datos</h3>
+                <p>
+                    La Plataforma permite registrar información con fines de demostración técnica.
+                    Los datos ingresados pueden ser reales, ficticios o simulados.
+                    La Plataforma no valida la información contra sistemas oficiales ni bases de datos institucionales.
+                    <br><br>
+                    <strong>No se realiza tratamiento formal de datos personales conforme a la legislación vigente</strong>,
+                    dado que el proyecto no constituye un servicio real ni un sistema productivo.
+                </p>
+
+                <h3>5. Seguridad y Limitaciones Técnicas</h3>
+                <p>
+                    Debido a su naturaleza académica:
+                    <br><br>
+                    • Puede contener errores o fallos técnicos<br>
+                    • No garantiza disponibilidad continua<br>
+                    • No implementa protocolos avanzados de seguridad<br>
+                    • No asegura cifrado completo de la información<br>
+                    • No está diseñada para manejar datos sensibles o confidenciales
+                    <br><br>
+                    El Usuario reconoce estas limitaciones y utiliza la Plataforma bajo su propio criterio académico.
+                </p>
+
+                <h3>6. Conservación y Eliminación de Datos</h3>
+                <p>
+                    Los datos ingresados:
+                    <br><br>
+                    • No se almacenan con fines institucionales<br>
+                    • No se comparten con terceros<br>
+                    • No se utilizan para análisis externos<br>
+                    • Pueden ser eliminados en cualquier momento por el Desarrollador<br>
+                    • Serán eliminados al finalizar el proyecto académico
+                </p>
+
+                <h3>7. Derechos del Usuario</h3>
+                <p>
+                    El Usuario tiene derecho a:
+                    <br><br>
+                    • Solicitar la eliminación de los datos ingresados<br>
+                    • Utilizar información ficticia en lugar de datos reales<br>
+                    • Abstenerse de proporcionar información personal sensible
+                </p>
+
+                <h3>8. Responsabilidad del Usuario</h3>
+                <p>
+                    El Usuario es responsable de:
+                    <br><br>
+                    • La veracidad de los datos que ingresa<br>
+                    • No proporcionar información personal sin consentimiento<br>
+                    • No utilizar la Plataforma para fines distintos a los académicos
+                </p>
+
+                <h3>9. Limitación de Responsabilidad del Desarrollador</h3>
+                <p>
+                    El Desarrollador no será responsable por:
+                    <br><br>
+                    • El uso indebido de la Plataforma<br>
+                    • La introducción de datos reales sin autorización<br>
+                    • Fallos técnicos, interrupciones o pérdida de información<br>
+                    • Daños derivados del uso de la Plataforma fuera del contexto académico
+                </p>
+
+                <h3>10. Modificaciones</h3>
+                <p>
+                    El Desarrollador puede modificar el contenido, diseño o funcionamiento de la Plataforma sin previo aviso,
+                    como parte del proceso de aprendizaje y mejora continua.
+                </p>
+
+                <h3>11. Aceptación de los Términos</h3>
+                <p>
+                    Al utilizar la Plataforma, el Usuario reconoce haber leído y aceptado estos Términos y Condiciones.
+                    Si el Usuario no está de acuerdo, deberá abstenerse de utilizar la Plataforma.
+                </p>
+
+            </div>
+
+            <!-- Botón aceptar -->
+            <button class="btn-terminos" onclick="document.getElementById('modalTerminos').style.display='none'">
+                Aceptar
+            </button>
+
+        </div>
+    </div>
+
+     <!-- JS GLOBAL (autenticación del usuario) -->
+    <script src="/global/auth.js"></script>
 
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
     <script src="/global/main.js"></script>
 
     <!-- JS LOCAL -->
-    <script src=""></script>
+    <script src="alumnos.js"></script>
 
 </body>
 </html>

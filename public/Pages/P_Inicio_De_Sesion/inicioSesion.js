@@ -73,13 +73,24 @@ document.getElementById("btnLogin").onclick = async () => {
             mostrarError(data.error || "Usuario o contraseña incorrectos.");
             return;
         }
-
+        console.log(data)
         // Guardar en localStorage
-        setUser({
-            userType: data.tipo_usuario,
-            userName: usuario,
-            userId: data.id_usuario
-        });
+        if (data.tipo_usuario === "GEST") {
+            setUser({
+                userType: data.tipo_usuario,
+                userName: usuario,
+                userId: data.id_usuario
+            });
+        }
+        else {
+            setUser({
+                userType: data.tipo_usuario,
+                userName: usuario,
+                userId: data.id_usuario,
+                userIdTaller: data.id_taller,
+                userNameTaller: data.nombre_taller
+            });
+        }
 
         window.location.href = "/";
 
