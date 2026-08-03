@@ -391,4 +391,3 @@ btnCancelarEdicion.onclick = () => {
     desactivarEdicion();
     cargarDatosAlumno(); // restaurar valores originales
 };
-
