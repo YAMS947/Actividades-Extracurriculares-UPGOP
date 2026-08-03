@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8"> <!-- Codificación de caracteres (permite acentos y ñ) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
-    <title>Actividades Extracurriculares UPGOP</title> <!-- Título de la pestaña del navegador -->
+    <title>Inicio de Sesión AE UPGOP</title> <!-- Título de la pestaña del navegador -->
     
     <!-- Conexión al archivo CSS externo -->
     <link rel="stylesheet" href="/global/main.css">
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="inicioSesion.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -43,18 +43,90 @@
     
 </header>
 
-<div class="bienvenida">
-    ¡BIENVENIDOS XIXIMES!
-</div>
+<!-- Inicio del contenido del cuerpo de la página -->
+<div class="page-body">
 
-<div class="carrusel">
-    <button class="btn-carrusel-izquierdo" id="btn-prev"> <img src="/global/img/principal/talleres_principal_boton_izquierdo.png" alt="" class="img-btn-carrusel-izquierdo"> </button>
+        <!-- Vista de Inicio de Sesión -->
+        <section id="vistaLogin" class="vista visible">
 
-    <img id="img-carrusel" class="img-carrusel" src="" alt="Taller">
+    <h2>INICIA SESIÓN</h2>
+    <img src="/global/img/inicio de sesion/icono-usuario.png" alt="" class="img-icono-usuario">
+    <div class="input-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" id="loginUsuario" maxlength="15">
+    </div>
 
-    <button class="btn-carrusel-derecho" id="btn-next"> <img src="/global/img/principal/talleres_principal_boton_derecho.png" alt="" class="img-btn-carrusel-derecho"> </button>
-</div>
+    <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" id="loginPassword" maxlength="25">
+    </div>
 
+    <button id="btnLogin" class="btn-primary">Iniciar sesión</button>
+    <section id="abrirRegistro">
+    <img src="/global/img/inicio de sesion/icono-registro.png" alt="" class="img-icono-registro">
+    <p class="link-registro">Regístrate aquí</p>
+    </section>
+
+</section>
+
+
+        <section id="vistaRegistro" class="vista">
+
+    <h2>REGÍSTRATE</h2>
+
+    <div class="input-group">
+        <label>Nombre(s)</label>
+        <input type="text" id="regNombre" maxlength="35">
+    </div>
+
+    <div class="input-group">
+        <label>Apellido Paterno</label>
+        <input type="text" id="regApellidoP" maxlength="25">
+    </div>
+
+    <div class="input-group">
+        <label>Apellido Materno</label>
+        <input type="text" id="regApellidoM" maxlength="25">
+    </div>
+
+    <div class="input-group">
+        <label>Matrícula</label>
+        <input type="text" id="regMatricula" maxlength="8">
+    </div>
+
+    <div class="input-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" id="regUsuario" maxlength="15">
+    </div>
+
+    <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" id="regPassword" maxlength="25">
+    </div>
+
+    <div class="input-group">
+        <label>Confirma Contraseña</label>
+        <input type="password" id="regPassword2" maxlength="25">
+    </div>
+
+    <div class="terminos-container">
+        <input type="checkbox" id="aceptarTerminos">
+        <label for="aceptarTerminos" class="link-terminos">
+            Acepto los Términos y Condiciones
+        </label>
+    </div>
+
+    <div class="btn-row">
+        <button id="btnGuardar" class="btn-primary">Registrarse</button>
+        <button id="btnCancelar" class="btn-danger">Cancelar</button>
+    </div>
+
+</section>
+
+<img src="/global/img/inicio de sesion/xixime.png" alt="" class="img-xixime">
+
+    </div>
+<!-- Fin del contenido del cuerpo de la página -->
 
 <!-- Pie de página -->
 <footer class="pie_De_Pagina"> <!-- Contenedor principal del footer -->
@@ -270,14 +342,24 @@
 
     </div>
 </div>
+
+<div id="modalError" class="modal-error">
+    <div class="modal-error-card">
+        <h3>Aviso</h3>
+        <p id="modalErrorMensaje"></p>
+        <button id="cerrarError" class="btn-error-close">Cerrar</button>
+    </div>
+</div>
+
     <!-- JS GLOBAL (autenticación del usuario) -->
     <script src="/global/auth.js"></script>
 
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
     <script src="/global/main.js"></script>
 
-    <!-- JS LOCAL (carrusel) -->
-    <script src="index.js"></script>
+    <!-- JS LOCAL -->
+    <script src="inicioSesion.js"></script>
 
 </body>
+
 </html>

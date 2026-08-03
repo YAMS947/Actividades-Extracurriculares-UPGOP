@@ -1,0 +1,235 @@
+/* Estilos generales */
+*{
+    margin:0; /* Elimina márgenes por defecto */
+    padding:0; /* Elimina relleno por defecto */
+    box-sizing:border-box; /* Incluye borde y padding en el tamaño total */
+}
+
+body{
+    font-family: Arial, sans-serif; /* Fuente general */
+    background-color: #DFDFDF;
+}
+
+.pie_De_Pagina{
+    background-color:#2E239A; /* Fondo azul */
+    color:white; /* Texto blanco */
+    padding:25px 40px; /* Espaciado interno */
+    margin-top: 5rem;
+}
+
+.contenedor_Pie{
+    display:flex; /* Coloca las secciones en fila */
+    justify-content:space-between; /* Espacio entre ellas */
+    gap:50px; /* Separación entre secciones */
+}
+
+.seccion_Contacto,
+.seccion_Universidad{
+    width:50%; /* Cada sección ocupa la mitad */
+}
+
+.seccion_Contacto h3,
+.seccion_Universidad h3{
+    border-bottom:1px solid white; /* Línea debajo del título */
+    padding-bottom:5px;
+    margin-bottom:20px;
+}
+
+.dato_Contacto{
+    display:flex; /* Icono + texto en fila */
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+
+.icono img{
+    width:35px; /* Tamaño del icono */
+    height:auto;
+    margin-right:15px; /* Espacio entre icono y texto */
+    display:block;
+}
+
+h4{
+    margin-bottom:5px;
+}
+
+.dato_Contacto p{
+    color:#CFCFCF; /* Color gris claro */
+    line-height:1.4; /* Espaciado entre líneas */
+}
+
+/* Enlaces */
+.link {
+    color: #00FFFF; /* Azul claro */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Botón */
+.btn-terminos {
+    background-color: #00FFFF; /* Fondo azul claro */
+    color: #2E239A; /* Texto azul oscuro */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn-terminos:hover {
+    background-color: #CFCFCF; /* Cambio de color al pasar el mouse */
+}
+
+/* Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Se mantiene en pantalla */
+    z-index: 1; /* Se coloca encima del contenido */
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro transparente */
+}
+
+.modal-content {
+    background-color: #fff; /* Fondo blanco */
+    margin: 5% auto; /* Centrado vertical y horizontal */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%; /* Ancho del modal */
+    color: #000; /* Texto negro */
+    max-height: 80%; /* Altura máxima */
+    overflow-y: auto; /* Scroll interno si hay mucho texto */
+}
+
+.close {
+    float: right; /* Botón de cierre a la derecha */
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Encabezado general */
+.encabezado {
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    padding-top: 0;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Imágenes laterales */
+.encab-izq {
+    width: 175px;
+    height: 156px;
+}
+
+.encab-der {
+    width: 216px;
+    height:156px;
+}
+
+/* Logo */
+.logo-upgop {
+    width: 156px;
+    height: 152px;
+}
+
+/* Título */
+.titulo-encab {
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 32px;
+    color: #000000;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Contenedor que une icono + menú */
+.hamburger-container {
+    position: absolute;
+    right: 75px;
+    top: 62px;
+    padding-bottom: 60px; /* puente invisible */
+}
+
+/* Icono hamburguesa */
+.hamburger {
+    width: 73px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 9px;
+    background: linear-gradient(90deg, #251F9C 0%, #0D0B36 100%);
+    margin: 10px 0;
+    transition: 0.4s ease;
+    border-radius: 15px;
+}
+
+/* Giro del icono */
+.hamburger.active {
+    transform: rotate(90deg);
+}
+
+.hamburger.active span {
+    opacity: 0;
+}
+
+/* Menú */
+.menu-hamb {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 220px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Menú visible */
+.hamburger-container:hover .menu-hamb {
+    display: flex;
+    opacity: 1;
+}
+
+/* Icono activo cuando el contenedor tiene hover */
+.hamburger-container:hover .hamburger {
+    transform: rotate(90deg);
+}
+
+.hamburger-container:hover .hamburger span {
+    opacity: .8;
+}
+
+/* Items del menú */
+.menu-item {
+    padding: 12px;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #251F9C 0%, #0D0B36 100%);
+    transition: 0.3s;
+}
+
+.menu-item:hover {
+    color: #251F9C;
+    background: #FFFFFF;
+    border: 2px solid #251F9C;
+}
+
