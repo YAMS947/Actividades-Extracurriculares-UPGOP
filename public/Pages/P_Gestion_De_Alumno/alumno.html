@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8"> <!-- Codificación de caracteres (permite acentos y ñ) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
-    <title></title> <!-- Título de la pestaña del navegador -->
+    <title>Gestión de Alumno AE UPGOP</title> <!-- Título de la pestaña del navegador -->
+    
+    <link rel="icon" type="image/png" href="/global/img/icon.png">
     
     <!-- Conexión al archivo CSS externo -->
     <link rel="stylesheet" href="/global/main.css">
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="alumno.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -44,7 +46,79 @@
 </header>
 
 <!-- Inicio del contenido del cuerpo de la página -->
+<!-- ===============================
+     CONTENIDO PRINCIPAL
+================================= -->
 
+<div class="bienvenida">
+    Datos del Alumno
+</div>
+
+<section class="contenedor-tabla">
+
+    <table id="tablaAlumno">
+        <tbody>
+
+            <tr>
+                <th>Nombre</th>
+                <td id="alumNombre" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Apellidos</th>
+                <td id="alumApellidos" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Carrera</th>
+                <td id="alumCarrera" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Grado</th>
+                <td id="alumGrado" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Matrícula</th>
+                <td id="alumMatricula" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Taller</th>
+                <td id="alumTaller" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Número telefónico</th>
+                <td id="alumTelefono" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Fecha de ingreso</th>
+                <td id="alumFechaIngreso" class="dato-campo"></td>
+            </tr>
+
+            <tr>
+                <th>Asistencias</th>
+                <td id="alumAsistencias" class="dato-campo"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</section>
+
+<!-- ===============================
+     BOTONES DE ACCIÓN
+================================= -->
+
+<div class="acciones-superiores">
+    <button id="btnDocumento" class="btn-azul">Documento</button>
+    <button id="btnModificar" class="btn-azul">Modificar datos</button>
+    <button id="btnCancelarEdicion" class="btn-azul oculto">Cancelar</button>
+    <button id="btnBaja" class="btn-rojo">Dar de baja</button>
+</div>
 <!-- Fin del contenido del cuerpo de la página -->
 
 <!-- Pie de página -->
@@ -133,6 +207,39 @@
     </div>
 
 </footer>
+
+<!-- ===============================
+     MENÚ DE CARRERAS (solo en modo edición)
+================================= -->
+
+<div id="menuCarreras" class="menu-desplegable oculto"></div>
+
+<!-- ===============================
+     MENÚ DE GRADOS (solo en modo edición)
+================================= -->
+
+<div id="menuGrados" class="menu-desplegable oculto"></div>
+
+<!-- ===============================
+     MODAL DAR DE BAJA
+================================= -->
+
+<div id="modalBaja" class="modal-baja oculto">
+
+    <div class="modal-baja-card">
+        <span id="cerrarModalBaja" class="cerrar-modal">X</span>
+
+        <p id="mensajeBaja">
+            ¿Seguro que deseas dar de baja al Alumno "<span id="nombreAlumnoBaja"></span>"?
+        </p>
+
+        <div class="fila-botones">
+            <button id="btnConfirmarBaja" class="btn-rojo">Confirmar</button>
+            <button id="btnCancelarBaja" class="btn-azul">Cancelar</button>
+        </div>
+    </div>
+
+</div>
 
 <!-- Modal de Términos y Condiciones -->
 <div id="modalTerminos" class="modal">
@@ -262,11 +369,14 @@
     </div>
 </div>
 
+    <!-- JS GLOBAL (autenticación del usuario) -->
+    <script src="/global/auth.js"></script>
+
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
     <script src="/global/main.js"></script>
 
     <!-- JS LOCAL -->
-    <script src=""></script>
+    <script src="alumno.js"></script>
 
 </body>
 </html>

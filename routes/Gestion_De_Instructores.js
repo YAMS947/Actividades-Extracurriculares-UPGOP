@@ -48,6 +48,7 @@ router.post('/lista', (req, res) => {
 
     const sqlLista = `
         SELECT 
+            usuarios.id_usuario,
             usuarios.nombre,
             CONCAT(usuarios.apellido_paterno, ' ', usuarios.apellido_materno) AS apellidos,
             taller.nombre_taller
@@ -71,8 +72,6 @@ router.post('/lista', (req, res) => {
         });
     });
 });
-
-
 
 // ============================================================
 // 3. DAR DE ALTA UN INSTRUCTOR
