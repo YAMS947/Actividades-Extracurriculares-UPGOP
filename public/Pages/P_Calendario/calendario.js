@@ -165,13 +165,18 @@ function calcularLimitesAlumno() {
 
     const hoy = new Date();
     const mesActualHoy = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-
+    console.log("calendario.js calcalum" )
+    console.log("calendario.js fechaIngresoStr", fechaIngresoStr)
+    console.log("calendario.js fechaIngreso", fechaIngreso)
+    console.log("calendario.js hoy", hoy)
+    console.log("calendario.js mesActualHoy", mesActualHoy)
+    console.log("calendario.js fin calcalum" )
     if (diasActivos.length > 0) {
 
         const primerDiaActivo = new Date(diasActivos[0].fecha);
         const ultimoDiaActivo = new Date(diasActivos[diasActivos.length - 1].fecha);
 
-        const mesUltimoActivo = new Date(ultimoDiaActivo.getFullYear(), ultimoDiaActivo.getMonth(), 1);
+        const mesUltimoActivo = ultimoDiaActivo;
 
         primerDiaPermitido = new Date(primerDiaActivo.getFullYear(), primerDiaActivo.getMonth(), 1);
 
@@ -182,6 +187,9 @@ function calcularLimitesAlumno() {
         primerDiaPermitido = mesActualHoy;
         ultimoDiaPermitido = mesActualHoy;
     }
+
+    console.log("calendario.js alum primerDiaPermitido: ", primerDiaPermitido)
+    console.log("calendario.js alum ultimoDiaPermitido: ", ultimoDiaPermitido)
 }
 
 // ===============================
@@ -190,6 +198,7 @@ function calcularLimitesAlumno() {
 function calcularLimitesInstGest() {
 
     const hoy = new Date();
+    console.log("calendario.js hoy: ", hoy)
 
     if (diasActivos.length === 0) {
         primerDiaPermitido = new Date(hoy.getFullYear(), hoy.getMonth() - 1, 1);
@@ -199,6 +208,7 @@ function calcularLimitesInstGest() {
 
     const primer = new Date(diasActivos[0].fecha);
 
+    
     primerDiaPermitido = new Date(primer.getFullYear(), primer.getMonth() - 1, 1);
     ultimoDiaPermitido = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 1);
 }
@@ -252,37 +262,48 @@ function construirCalendario() {
             return fechaBDISO === fechaISO;
         });
 
-        if (!diaActivo) {
-            celda.classList.add("inactivo");
-        } else {
+        const hoy = new Date();
+const sieteDiasAntes = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() - 7);
+const sieteDiasDespues = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 7);
 
-            if (usuario.userType === "ALUM") {
+if (!diaActivo) {
+    celda.classList.add("inactivo");
 
-                const registro = asistencias.find(a => a.id_dia === diaActivo.id_dia);
+    // Permitir selección si es INST o GEST y está dentro del rango de ±7 días
+    if ((usuario.userType === "INST" || usuario.userType === "GEST") &&
+        fechaDia >= sieteDiasAntes &&
+        fechaDia <= sieteDiasDespues) {
 
-                if (registro) {
-                    if (registro.tipo === "ASIS") celda.classList.add("asistencia");
-                    else if (registro.tipo === "JUST") celda.classList.add("justificacion");
-                } else {
-                    celda.classList.add("falta");
-                }
+        celda.classList.add("seleccionable");
 
-            } else {
-                celda.classList.add("activo-inst");
+        celda.onclick = () => {
+            localStorage.setItem("paseListaDia", fechaISO);
+
+            if (usuario.userType === "GEST") {
+                localStorage.setItem("paseListaTaller", tallerSeleccionado);
             }
 
-            if (usuario.userType === "INST" || usuario.userType === "GEST") {
-                celda.onclick = () => {
-                    localStorage.setItem("paseListaDia", fechaISO);
+            window.location.href = "../P_Pase_De_Lista/paseLista.html";
+        };
+    }
 
-                    if (usuario.userType === "GEST") {
-                        localStorage.setItem("paseListaTaller", tallerSeleccionado);
-                    }
+} else {
+    // Día activo
+    if (usuario.userType === "INST" || usuario.userType === "GEST") {
+        celda.classList.add("activo-inst");
 
-                    window.location.href = "../P_Pase_De_Lista/paseLista.html";
-                };
+        celda.onclick = () => {
+            localStorage.setItem("paseListaDia", fechaISO);
+
+            if (usuario.userType === "GEST") {
+                localStorage.setItem("paseListaTaller", tallerSeleccionado);
             }
-        }
+
+            window.location.href = "../P_Pase_De_Lista/paseLista.html";
+        };
+    }
+}
+
 
         fila.appendChild(celda);
 

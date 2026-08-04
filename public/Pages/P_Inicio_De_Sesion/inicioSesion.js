@@ -1,6 +1,6 @@
-if (isLoggedIn()) {
+/* if (isLoggedIn()) {
     window.location.href = "/";
-}
+} */
 
 const vistaLogin = document.getElementById("vistaLogin");
 const vistaRegistro = document.getElementById("vistaRegistro");
@@ -68,13 +68,14 @@ document.getElementById("btnLogin").onclick = async () => {
         });
 
         const data = await respuesta.json();
-
+        console.log(data)
         if (!respuesta.ok) {
             mostrarError(data.error || "Usuario o contraseña incorrectos.");
             return;
         }
         // Guardar en localStorage
         if (data.tipo_usuario === "GEST") {
+            console.log("Se considera gestor")
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -82,6 +83,7 @@ document.getElementById("btnLogin").onclick = async () => {
             });
         }
         if (data.tipo_usuario === "INST") {
+            console.log("Se considera instructor")
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -90,7 +92,8 @@ document.getElementById("btnLogin").onclick = async () => {
                 userNameTaller: data.nombre_taller
             });
         }
-        if (data.tipo_usario === "ALUM") {
+        if (data.tipo_usuario === "ALUM") {
+            console.log("Se considera alumno. inicioSesion.js:94")
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -100,8 +103,10 @@ document.getElementById("btnLogin").onclick = async () => {
                 fechaIngreso: data.fecha_ingreso
             });
         }
-
-        window.location.href = "/";
+        console.log(data)
+        console.log(data.fecha_ingreso)
+        console.log("Ya paso la confirmación de tipo de usuario")
+        //window.location.href = "/";
 
     } catch (error) {
         mostrarError("Error en el servidor: " + error.message);

@@ -71,6 +71,7 @@
 .calendario {
     overflow: hidden;
     z-index: 1;
+    border-radius: 8px;
 }
 
 .calendario .fila {
@@ -101,7 +102,7 @@
 
 .calendario .dia.inactivo {
     background-color: #fafafa;
-    color: #bbb;
+    color: #313754;
     cursor: default;
 }
 
@@ -126,3 +127,11 @@
     height: 10px;
     border-radius: 8px;
 }
+
+.calendario .dia.seleccionable {
+    cursor: pointer !important;
+    background-color: #e0e0e0;
+    border: 1px solid #aaa;
+}
+
+
