@@ -157,7 +157,7 @@ h4{
     position: absolute;
     right: 75px;
     top: 62px;
-    padding-bottom: 60px; /* puente invisible */
+    padding-bottom: 30px; /* puente invisible */
 }
 
 /* Icono hamburguesa */
@@ -198,6 +198,7 @@ h4{
     gap: 10px;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 1010;
 }
 
 /* Menú visible */
@@ -225,6 +226,7 @@ h4{
     border-radius: 8px;
     background: linear-gradient(90deg, #251F9C 0%, #0D0B36 100%);
     transition: 0.3s;
+    z-index: 1010;
 }
 
 .menu-item:hover {

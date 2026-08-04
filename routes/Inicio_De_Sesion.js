@@ -75,26 +75,77 @@ router.post('/', (req, res) => {
                 return res.status(500).json({ error: "Error al obtener taller" });
             }
 
-            // Si no tiene taller asignado (caso raro)
+            // Obtener fecha de ingreso SOLO si es alumno
+            if (user.tipo_usuario === "ALUM") {
+
+                const sqlFechaIngreso = `
+                SELECT fecha
+                FROM fecha_ingreso
+                WHERE id_usuario = ?;
+            `;
+
+            db.query(sqlFechaIngreso, [user.id_usuario], (err, fechaResult) => {
+                if (err) {
+                    console.error("Error al obtener fecha de ingreso:", err);
+                    return res.status(500).json({ error: "Error al obtener fecha de ingreso" });
+                }
+
+                const fechaIngreso = fechaResult.length > 0 ? fechaResult[0].fecha : null;
+
+                // Si no tiene taller asignado
+                if (tallerResult.length === 0) {
+                    return res.json({
+                        mensaje: "Inicio de sesión exitoso",
+                        id_usuario: user.id_usuario,
+                        tipo_usuario: user.tipo_usuario,
+                        id_taller: null,
+                        nombre_taller: null,
+                        fecha_ingreso: fechaIngreso
+                    });
+                }
+
+                // Taller encontrado
+                const taller = tallerResult[0];
+
+                return res.json({
+                    mensaje: "Inicio de sesión exitoso",
+                    id_usuario: user.id_usuario,
+                    tipo_usuario: user.tipo_usuario,
+                    id_taller: taller.id_taller,
+                    nombre_taller: taller.nombre_taller,
+                    fecha_ingreso: fechaIngreso
+                });
+            });
+
+        } else {
+
+            // INST y GEST NO tienen fecha de ingreso
+            const fechaIngreso = null;
+
+            // Si no tiene taller asignado
             if (tallerResult.length === 0) {
                 return res.json({
-                    mensaje: "Inicio de sesión exitoso 2",
+                    mensaje: "Inicio de sesión exitoso",
                     id_usuario: user.id_usuario,
                     tipo_usuario: user.tipo_usuario,
                     id_taller: null,
-                    nombre_taller: null
+                    nombre_taller: null,
+                    fecha_ingreso: fechaIngreso
                 });
             }
 
             // Taller encontrado
             const taller = tallerResult[0];
-            res.json({
-                mensaje: "Inicio de sesión exitoso 1",
+
+            return res.json({
+                mensaje: "Inicio de sesión exitoso",
                 id_usuario: user.id_usuario,
                 tipo_usuario: user.tipo_usuario,
-                id_taller: user.id_taller,
-                nombre_taller: user.nombre_taller
+                id_taller: taller.id_taller,
+                nombre_taller: taller.nombre_taller,
+                fecha_ingreso: fechaIngreso
             });
+            }
         });
     });
 });

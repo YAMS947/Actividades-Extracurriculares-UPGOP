@@ -7,6 +7,9 @@ function setUser(data) {
         localStorage.setItem("userTallerId", data.userIdTaller || "");
         localStorage.setItem("userTallerNombre", data.userNameTaller || "");
     }
+    if (data.tipo_usuario === "ALUM") {
+        localStorage.setItem("fechaIngresoAlumno", data.fechaIngreso || "");
+    }
 }
 
 // Obtiene los datos del usuario
@@ -16,7 +19,8 @@ function getUser() {
         userName: localStorage.getItem("userName") || "",
         userId: localStorage.getItem("userId") || null,
         userTallerId: localStorage.getItem("userTallerId") || null,
-        userTallerNombre: localStorage.getItem("userTallerNombre") || ""
+        userTallerNombre: localStorage.getItem("userTallerNombre") || "",
+        fechaIngresoAlumno: localStorage.getItem("fechaIngresoAlumno") || null
     };
 }
 
@@ -32,5 +36,6 @@ function logout() {
     localStorage.setItem("userId", "");
     localStorage.removeItem("userTallerId");
     localStorage.removeItem("userTallerNombre");
+    localStorage.removeItem("fechaIngresoAlumno")
     window.location.href = "/";
 }

@@ -81,13 +81,23 @@ document.getElementById("btnLogin").onclick = async () => {
                 userId: data.id_usuario
             });
         }
-        else {
+        if (data.tipo_usuario === "INST") {
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
                 userId: data.id_usuario,
                 userIdTaller: data.id_taller,
                 userNameTaller: data.nombre_taller
+            });
+        }
+        if (data.tipo_usario === "ALUM") {
+            setUser({
+                userType: data.tipo_usuario,
+                userName: usuario,
+                userId: data.id_usuario,
+                userIdTaller: data.id_taller,
+                userNameTaller: data.nombre_taller,
+                fechaIngreso: data.fecha_ingreso
             });
         }
 

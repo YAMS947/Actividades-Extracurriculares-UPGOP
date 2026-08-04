@@ -45,9 +45,40 @@
     
 </header>
 
-<div class="mantenimiento">
-    <h1>Página en mantenimiento</h1>
-    <p>Estamos trabajando para mejorar tu experiencia.</p>
+<div class="bienvenida">
+    Horarios
+</div>
+
+<div id="horarios">
+
+    <div class="barra-superior">
+        <div class="selector-mes">
+            <button id="btnMesPrev">&lt;</button>
+            <span id="textoMes"></span>
+            <button id="btnMesNext">&gt;</button>
+        </div>
+
+        <div class="selector-taller" id="contenedorSelectorTaller">
+            <button id="btnSeleccionarTaller">Seleccionar taller</button>
+            <div id="menuTalleres" class="menu-talleres oculto"></div>
+        </div>
+    </div>
+    <section class="contenedor-calendario">
+    <div class="calendario">
+        <div class="fila encabezado">
+            <div>DOMINGO</div>
+            <div>LUNES</div>
+            <div>MARTES</div>
+            <div>MIÉRCOLES</div>
+            <div>JUEVES</div>
+            <div>VIERNES</div>
+            <div>SÁBADO</div>
+        </div>
+        <div id="cuerpoCalendario"></div>
+    </div>
+    <div class="calendario-borde-bajo"></div>
+    </section>
+
 </div>
 
 

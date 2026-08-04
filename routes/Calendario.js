@@ -60,9 +60,9 @@ router.post('/dias-activos', (req, res) => {
         return res.status(400).json({ error: "Faltan datos de sesión" });
     }
 
-    // ============================================================
-    // CASO 1: Usuario GESTOR → puede elegir cualquier taller
-    // ============================================================
+    // ============================
+    // CASO 1: GESTOR
+    // ============================
     if (tipo_usuario === "GEST") {
 
         if (!id_taller) {
@@ -70,15 +70,13 @@ router.post('/dias-activos', (req, res) => {
         }
 
         const sqlDias = `
-            SELECT 
-                id_dia,
-                fecha
+            SELECT id_dia, fecha
             FROM dia_activo
             WHERE id_taller = ?
             ORDER BY fecha ASC;
         `;
 
-        return db.query(sqlDias, [id_taller], (err, result) => {
+        db.query(sqlDias, [id_taller], (err, result) => {
             if (err) {
                 console.error("Error al obtener días activos:", err);
                 return res.status(500).json({ error: "Error al obtener días activos" });
@@ -89,11 +87,13 @@ router.post('/dias-activos', (req, res) => {
                 dias_activos: result
             });
         });
+
+        return; // ← importante
     }
 
-    // ============================================================
-    // CASO 2: Usuario ALUM o INST → obtener taller automáticamente
-    // ============================================================
+    // ============================
+    // CASO 2: ALUM / INST
+    // ============================
     const sqlTallerUsuario = `
         SELECT id_taller
         FROM taller_usuario
@@ -113,9 +113,7 @@ router.post('/dias-activos', (req, res) => {
         const tallerUsuario = result[0].id_taller;
 
         const sqlDias = `
-            SELECT 
-                id_dia,
-                fecha
+            SELECT id_dia, fecha
             FROM dia_activo
             WHERE id_taller = ?
             ORDER BY fecha ASC;
@@ -127,9 +125,9 @@ router.post('/dias-activos', (req, res) => {
                 return res.status(500).json({ error: "Error al obtener días activos" });
             }
 
-            // ============================================================
-            // Si es ALUM → obtener asistencias del alumno
-            // ============================================================
+            // ============================
+            // ALUM → obtener asistencias
+            // ============================
             if (tipo_usuario === "ALUM") {
 
                 const sqlAsistencias = `
@@ -139,7 +137,7 @@ router.post('/dias-activos', (req, res) => {
                     ORDER BY id_dia ASC;
                 `;
 
-                return db.query(sqlAsistencias, [id_usuario], (err, asistencias) => {
+                db.query(sqlAsistencias, [id_usuario], (err, asistencias) => {
                     if (err) {
                         console.error("Error al obtener asistencias:", err);
                         return res.status(500).json({ error: "Error al obtener asistencias" });
@@ -151,11 +149,13 @@ router.post('/dias-activos', (req, res) => {
                         asistencias: asistencias
                     });
                 });
+
+                return; // ← importante
             }
 
-            // ============================================================
-            // Si es INST → solo enviar días activos
-            // ============================================================
+            // ============================
+            // INST → solo días activos
+            // ============================
             res.json({
                 mensaje: "Días activos obtenidos correctamente",
                 dias_activos: dias
