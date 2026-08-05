@@ -46,10 +46,56 @@
 </header>
 
 <!-- Inicio del contenido del cuerpo de la página -->
-<div class="mantenimiento">
-    <h1>Página en mantenimiento</h1>
-    <p>Estamos trabajando para mejorar tu experiencia.</p>
+<div class="bienvenida">
+    Horarios
 </div>
+
+<div class="info-superior">
+        <div class="info-item">
+            <span class="label">Fecha:</span>
+            <span id="etiquetaFecha" class="valor"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Taller:</span>
+            <span id="etiquetaTaller" class="valor"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Estado del día:</span>
+            <span id="indicadorDia" class="valor estado-dia"></span>
+        </div>
+        <button id="btnDesactivarDia" class="btn-desactivar">Desactivar día</button>
+    </div>
+<section class="contenedor-principal">
+    <div class="contenedor-tabla">
+        <table class="tabla-pase-lista">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Matrícula</th>
+                    <th>Asistencia</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoPaseLista">
+                <!-- Aquí se insertan los alumnos -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="leyenda">
+        <h3>Leyenda</h3>
+        <div class="leyenda-item">
+            <span class="icono icono-asistencia"></span> ASISTENCIA
+        </div>
+        <div class="leyenda-item">
+            <span class="icono icono-justificacion"></span> JUSTIFICACIÓN
+        </div>
+        <div class="leyenda-item">
+            <span class="icono icono-falta"></span> INASISTENCIA
+        </div>
+    </div>
 <!-- Fin del contenido del cuerpo de la página -->
 
 <!-- Pie de página -->

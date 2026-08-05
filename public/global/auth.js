@@ -4,7 +4,7 @@ function setUser(data) {
     localStorage.setItem("userType", data.userType);
     localStorage.setItem("userName", data.userName);
     localStorage.setItem("userId", data.userId || "");
-    if (data.tipo_usuario === "INST" || data.userType === "ALUM") {
+    if (data.userType === "INST" || data.userType === "ALUM") {
         localStorage.setItem("userTallerId", data.userIdTaller || "");
         localStorage.setItem("userTallerNombre", data.userNameTaller || "");
         console.log("Funcion setUser()", "Ingreso a if para inst y alum")

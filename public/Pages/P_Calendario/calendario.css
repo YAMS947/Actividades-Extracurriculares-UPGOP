@@ -134,4 +134,7 @@
     border: 1px solid #aaa;
 }
 
-
+.calendario .dia.activo-alum {
+    background-color: #ffffff;
+    color: #222;
+}

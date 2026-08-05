@@ -289,6 +289,12 @@ if (!diaActivo) {
 
 } else {
     // Día activo
+
+    if (usuario.userType === "ALUM") {
+        // Clase especial para alumno
+        celda.classList.add("activo-alum");
+    }
+
     if (usuario.userType === "INST" || usuario.userType === "GEST") {
         celda.classList.add("activo-inst");
 
@@ -303,6 +309,7 @@ if (!diaActivo) {
         };
     }
 }
+
 
 
         fila.appendChild(celda);

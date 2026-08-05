@@ -1,6 +1,6 @@
-/* if (isLoggedIn()) {
+ if (isLoggedIn()) {
     window.location.href = "/";
-} */
+}
 
 const vistaLogin = document.getElementById("vistaLogin");
 const vistaRegistro = document.getElementById("vistaRegistro");
@@ -106,7 +106,7 @@ document.getElementById("btnLogin").onclick = async () => {
         console.log(data)
         console.log(data.fecha_ingreso)
         console.log("Ya paso la confirmación de tipo de usuario")
-        //window.location.href = "/";
+        window.location.href = "/";
 
     } catch (error) {
         mostrarError("Error en el servidor: " + error.message);

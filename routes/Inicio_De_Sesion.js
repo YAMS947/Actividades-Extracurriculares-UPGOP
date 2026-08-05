@@ -29,9 +29,6 @@ router.post("/", (req, res) => {
         return res.status(400).json({ error: "Usuario o contraseña incorrectos." });
     }
 
-    // ============================
-    // CONSULTA CORRECTA DE USUARIO
-    // ============================
     const sqlUsuario = `
         SELECT id_usuario, usuario, contrasena, tipo_usuario
         FROM usuarios
