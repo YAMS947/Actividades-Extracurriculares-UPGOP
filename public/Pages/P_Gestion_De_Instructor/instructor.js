@@ -73,9 +73,7 @@ async function cargarDatosInstructor() {
     const body = construirBodyDatos();
     if (!body) return;
 
-    console.log("BODY ENVIADO:", body);
-
-    const res = await fetch("/gestion-instructor/datos", {
+    const res = await fetch(`${API}/gestion-instructor/datos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -211,7 +209,7 @@ async function guardarCambios() {
         telefono: datos.telefono
     };
 
-    const res = await fetch("/gestion-instructor/actualizar", {
+    const res = await fetch(`${API}/gestion-instructor/actualizar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -259,7 +257,7 @@ cerrarModalBaja.onclick = () => modalBaja.classList.add("oculto");
 btnCancelarBaja.onclick = () => modalBaja.classList.add("oculto");
 
 btnConfirmarBaja.onclick = async () => {
-    const res = await fetch("/gestion-instructor/baja", {
+    const res = await fetch(`${API}/gestion-instructor/baja`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

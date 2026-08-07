@@ -38,7 +38,7 @@ document.getElementById("etiquetaTaller").textContent = usuario.userTallerNombre
 // ============================================================
 async function cargarPaseLista() {
 
-    const res = await fetch("/pase-lista/ver", {
+    const res = await fetch(`${API}/pase-lista/ver`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -50,7 +50,6 @@ async function cargarPaseLista() {
     });
 
     const data = await res.json();
-    console.log("Respuesta pase-lista/ver:", data);
 
     const cuerpo = document.getElementById("cuerpoPaseLista");
     cuerpo.innerHTML = "";
@@ -98,7 +97,7 @@ async function cargarPaseLista() {
 
             // Si el día NO es activo → crear día activo
             if (!diaActivo) {
-                const crear = await fetch("/pase-lista/crear-dia", {
+                const crear = await fetch(`${API}/pase-lista/crear-dia`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -118,7 +117,7 @@ async function cargarPaseLista() {
             aplicarIcono(icono, estado);
 
             // Registrar en backend
-            await fetch("/pase-lista/marcar", {
+            await fetch(`${API}/pase-lista/marcar`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -181,7 +180,7 @@ function actualizarIndicadorDia(activo) {
 // ============================================================
 document.getElementById("btnDesactivarDia").onclick = async () => {
 
-    const res = await fetch("/pase-lista/ver", {
+    const res = await fetch(`${API}/pase-lista/ver`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -199,7 +198,7 @@ document.getElementById("btnDesactivarDia").onclick = async () => {
         return;
     }
 
-    await fetch("/pase-lista/eliminar-dia", {
+    await fetch(`${API}/pase-lista/eliminar-dia`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id_dia: data.id_dia })

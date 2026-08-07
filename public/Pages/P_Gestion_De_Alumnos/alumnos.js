@@ -36,7 +36,7 @@ let tallerSeleccionado = null;
 // 3. Cargar talleres (solo GEST)
 // ===============================
 async function cargarTalleres() {
-    const res = await fetch("/gestion-alumnos/talleres");
+    const res = await fetch(`${API}/gestion-alumnos/talleres`);
     const data = await res.json();
 
     menuTalleres.innerHTML = "";
@@ -70,7 +70,7 @@ async function cargarAlumnos() {
         body.id_taller = tallerSeleccionado;
     }
 
-    const res = await fetch("/gestion-alumnos/lista", {
+    const res = await fetch(`${API}/gestion-alumnos/lista`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -157,7 +157,7 @@ btnConfirmarAlta.onclick = async () => {
         return;
     }
 
-    const res = await fetch("/gestion-alumnos/alta", {
+    const res = await fetch(`${API}/gestion-alumnos/alta`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -200,7 +200,7 @@ if (usuario.userType === "INST") {
 }
 
 async function cargarTalleresAlta() {
-    const res = await fetch("/gestion-alumnos/talleres");
+    const res = await fetch(`${API}/gestion-alumnos/talleres`);
     const data = await res.json();
 
     const menu = document.getElementById("menuTalleresAlta");

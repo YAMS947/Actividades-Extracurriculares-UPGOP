@@ -61,21 +61,19 @@ document.getElementById("btnLogin").onclick = async () => {
     }
 
     try {
-        const respuesta = await fetch("/inicio-sesion", {
+        const respuesta = await fetch(`${API}/inicio-sesion`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ usuario, contrasena })
         });
 
         const data = await respuesta.json();
-        console.log(data)
         if (!respuesta.ok) {
             mostrarError(data.error || "Usuario o contraseña incorrectos.");
             return;
         }
         // Guardar en localStorage
         if (data.tipo_usuario === "GEST") {
-            console.log("Se considera gestor")
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -83,7 +81,6 @@ document.getElementById("btnLogin").onclick = async () => {
             });
         }
         if (data.tipo_usuario === "INST") {
-            console.log("Se considera instructor")
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -93,7 +90,6 @@ document.getElementById("btnLogin").onclick = async () => {
             });
         }
         if (data.tipo_usuario === "ALUM") {
-            console.log("Se considera alumno. inicioSesion.js:94")
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -103,9 +99,6 @@ document.getElementById("btnLogin").onclick = async () => {
                 fechaIngreso: data.fecha_ingreso
             });
         }
-        console.log(data)
-        console.log(data.fecha_ingreso)
-        console.log("Ya paso la confirmación de tipo de usuario")
         window.location.href = "/";
 
     } catch (error) {
@@ -146,7 +139,7 @@ document.getElementById("btnGuardar").onclick = async () => {
     }
 
     try {
-        const respuesta = await fetch("/inicio-sesion/registro-alumno", {
+        const respuesta = await fetch(`${API}/inicio-sesion/registro-alumno`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

@@ -78,7 +78,7 @@ async function cargarDatosAlumno() {
     const body = construirBodyDatos();
     if (!body) return;
 
-    const res = await fetch("/gestion-alumno/datos", {
+    const res = await fetch(`${API}/gestion-alumno/datos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -311,7 +311,7 @@ async function guardarCambios() {
         body.matricula = datosAlumno.matricula;
     }
 
-    const res = await fetch("/gestion-alumno/actualizar", {
+    const res = await fetch(`${API}/gestion-alumno/actualizar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -356,7 +356,7 @@ cerrarModalBaja.onclick = () => modalBaja.classList.add("oculto");
 btnCancelarBaja.onclick = () => modalBaja.classList.add("oculto");
 
 btnConfirmarBaja.onclick = async () => {
-    const res = await fetch("/gestion-alumno/baja", {
+    const res = await fetch(`${API}/gestion-alumno/baja`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id_usuario: datosAlumno.id_usuario })

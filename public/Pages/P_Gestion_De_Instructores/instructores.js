@@ -38,7 +38,7 @@ let tallerSeleccionadoInst = null;
 // 3. Cargar talleres (solo para alta)
 // ===============================
 async function cargarTalleresInst() {
-    const res = await fetch("/gestion-instructores/talleres");
+    const res = await fetch(`${API}/gestion-instructores/talleres`);
     const data = await res.json();
 
     menuTalleresInst.innerHTML = "";
@@ -62,7 +62,7 @@ async function cargarTalleresInst() {
 // ===============================
 async function cargarInstructores() {
 
-    const res = await fetch("/gestion-instructores/lista", {
+    const res = await fetch(`${API}/gestion-instructores/lista`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -71,7 +71,6 @@ async function cargarInstructores() {
     });
 
     const data = await res.json();
-    console.log(data)
     tabla.innerHTML = "";
 
     data.instructores.forEach(inst => {
@@ -134,7 +133,7 @@ btnConfirmarAltaInstructor.onclick = async () => {
         return;
     }
 
-    const res = await fetch("/gestion-instructores/alta", {
+    const res = await fetch(`${API}/gestion-instructores/alta`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

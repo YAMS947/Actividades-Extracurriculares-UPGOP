@@ -36,7 +36,7 @@ let ultimoDiaPermitido = null;
 // ===============================
 async function cargarTalleres() {
     try {
-        const res = await fetch("/calendario/talleres");
+        const res = await fetch(`${API}/calendario/talleres`);
         const data = await res.json();
 
         talleres = data.talleres || [];
@@ -95,7 +95,7 @@ async function cargarDatosCalendario(irAPrimerDiaActivo = false) {
     }
 
     try {
-        const res = await fetch("/calendario/dias-activos", {
+        const res = await fetch(`${API}/calendario/dias-activos`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
