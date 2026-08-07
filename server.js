@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Permite la comunicación entre el Front-End y el Back-End
 // Incluso cuando tienen origenes diferentes
@@ -29,7 +29,7 @@ app.use(cors());
 //  RUTA PRINCIPAL (HTML)
 // ===============================
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'P_Principal', 'index.html'));// Encuentra la ruta de la primer página a mostrar
+    res.sendFile(path.join(__dirname, 'index.html'));// Encuentra la ruta de la primer página a mostrar
 });
 
 // =======================

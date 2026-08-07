@@ -3,7 +3,7 @@
 // ===============================
 if (!isLoggedIn()) {
     alert("No tienes una sesión activa.");
-    window.location.href = "../P_Inicio_De_Sesion/inicioSesion.html";
+    window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
 const usuario = getUser();
@@ -54,7 +54,7 @@ function construirBodyDatos() {
     const seleccionadoStr = localStorage.getItem("instructorSeleccionado");
     if (!seleccionadoStr) {
         alert("No se seleccionó ningún instructor.");
-        window.location.href = "../P_Gestion_De_Instructores/instructores.html";
+        window.location.href = "/public/Pages/P_Gestion_De_Instructores/instructores.html";
         return null;
     }
 
@@ -281,7 +281,7 @@ btnConfirmarBaja.onclick = async () => {
     modalBaja.classList.add("oculto");
 
     // ✔ Regresar a la lista de instructores
-    window.location.href = "../P_Gestion_De_Instructores/instructores.html";
+    window.location.href = "/public/Pages/P_Gestion_De_Instructores/instructores.html";
 };
 
 

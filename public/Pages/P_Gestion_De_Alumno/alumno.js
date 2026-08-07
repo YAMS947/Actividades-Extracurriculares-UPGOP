@@ -3,7 +3,7 @@
 // ===============================
 if (!isLoggedIn()) {
     alert("No tienes una sesión activa.");
-    window.location.href = "../P_Inicio_De_Sesion/inicioSesion.html";
+    window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
 const usuario = getUser();
@@ -58,7 +58,7 @@ function construirBodyDatos() {
     const seleccionadoStr = localStorage.getItem("alumnoSeleccionado");
     if (!seleccionadoStr) {
         alert("No se seleccionó ningún alumno.");
-        window.location.href = "../P_Gestion_De_Alumnos/alumnos.html";
+        window.location.href = "/public/Pages/P_Gestion_De_Alumnos/alumnos.html";
         return null;
     }
 

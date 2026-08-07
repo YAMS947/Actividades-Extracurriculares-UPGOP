@@ -1,7 +1,7 @@
 // Seguridad de sesión
 if (!isLoggedIn()) {
     alert("No tienes una sesión activa.");
-    window.location.href = "../P_Inicio_De_Sesion/inicioSesion.html";
+    window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
 const usuario = getUser();
@@ -283,18 +283,12 @@ if (!diaActivo) {
                 localStorage.setItem("paseListaTaller", tallerSeleccionado);
             }
 
-            window.location.href = "../P_Pase_De_Lista/paseLista.html";
+            window.location.href = "/public/Pages/P_Pase_De_Lista/paseLista.html";
         };
     }
 
 } else {
     // Día activo
-
-    if (usuario.userType === "ALUM") {
-        // Clase especial para alumno
-        celda.classList.add("activo-alum");
-    }
-
     if (usuario.userType === "INST" || usuario.userType === "GEST") {
         celda.classList.add("activo-inst");
 
@@ -305,11 +299,10 @@ if (!diaActivo) {
                 localStorage.setItem("paseListaTaller", tallerSeleccionado);
             }
 
-            window.location.href = "../P_Pase_De_Lista/paseLista.html";
+            window.location.href = "/public/Pages/P_Pase_De_Lista/paseLista.html";
         };
     }
 }
-
 
 
         fila.appendChild(celda);

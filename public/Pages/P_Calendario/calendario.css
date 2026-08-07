@@ -66,6 +66,7 @@
     background-color: #3A5B98;
     border-radius: 8px;
     border: 1px solid #DAA0B0;
+    z-index: 1;
 }
 
 .calendario {
@@ -132,9 +133,4 @@
     cursor: pointer !important;
     background-color: #e0e0e0;
     border: 1px solid #aaa;
-}
-
-.calendario .dia.activo-alum {
-    background-color: #ffffff;
-    color: #222;
 }

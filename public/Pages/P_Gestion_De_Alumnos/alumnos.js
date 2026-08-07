@@ -3,7 +3,7 @@
 // ===============================
 if (!isLoggedIn()) {
     alert("No tienes una sesión activa.");
-    window.location.href = "../P_Inicio_De_Sesion/inicioSesion.html";
+    window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
 const usuario = getUser();
@@ -92,7 +92,7 @@ async function cargarAlumnos() {
 
         tr.onclick = () => {
             localStorage.setItem("alumnoSeleccionado", JSON.stringify(a));
-            window.location.href = "../P_Gestion_De_Alumno/alumno.html";
+            window.location.href = "/public/Pages/P_Gestion_De_Alumno/alumno.html";
         };
 
         tabla.appendChild(tr);

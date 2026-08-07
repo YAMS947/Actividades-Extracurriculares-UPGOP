@@ -5,30 +5,30 @@ const menu = document.getElementById("menu-hamb");
 function construirMenu() {
     menu.innerHTML = "";
 
-    const inicio = crearItem(user.userName, "/Pages/P_Inicio_De_Sesion/inicioSesion.html");
+    const inicio = crearItem(user.userName, "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html");
     menu.appendChild(inicio);
 
     if (user.userType === "NONE") return;
 
     if (user.userType === "ALUM") {
-        menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
-        menu.appendChild(crearItem("Mis datos", "/Pages/P_Gestion_De_Alumno/alumno.html"));
+        menu.appendChild(crearItem("Horarios", "/public/Pages/P_Calendario/calendario.html"));
+        menu.appendChild(crearItem("Mis datos", "/public/Pages/P_Gestion_De_Alumno/alumno.html"));
         menu.appendChild(crearCerrarSesion());
     }
 
     if (user.userType === "INST") {
-        menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
-        menu.appendChild(crearItem("Alumnos", "/Pages/P_Gestion_De_Alumnos/alumnos.html"));
-        menu.appendChild(crearItem("Solicitudes", "/Pages/P_Solicitudes/solicitudes.html"));
-        menu.appendChild(crearItem("Mis datos", "/Pages/P_Gestion_De_Instructor/instructor.html"));
+        menu.appendChild(crearItem("Horarios", "/public/Pages/P_Calendario/calendario.html"));
+        menu.appendChild(crearItem("Alumnos", "/public/Pages/P_Gestion_De_Alumnos/alumnos.html"));
+        menu.appendChild(crearItem("Solicitudes", "/public/Pages/P_Solicitudes/solicitudes.html"));
+        menu.appendChild(crearItem("Mis datos", "/public/Pages/P_Gestion_De_Instructor/instructor.html"));
         menu.appendChild(crearCerrarSesion());
     }
 
     if (user.userType === "GEST") {
-        menu.appendChild(crearItem("Horarios", "/Pages/P_Calendario/calendario.html"));
-        menu.appendChild(crearItem("Alumnos", "/Pages/P_Gestion_De_Alumnos/alumnos.html"));
-        menu.appendChild(crearItem("Instructores", "/Pages/P_Gestion_De_Instructores/instructores.html"));
-        menu.appendChild(crearItem("Solicitudes", "/Pages/P_Solicitudes/solicitudes.html"));
+        menu.appendChild(crearItem("Horarios", "/public/Pages/P_Calendario/calendario.html"));
+        menu.appendChild(crearItem("Alumnos", "/public/Pages/P_Gestion_De_Alumnos/alumnos.html"));
+        menu.appendChild(crearItem("Instructores", "/public/Pages/P_Gestion_De_Instructores/instructores.html"));
+        menu.appendChild(crearItem("Solicitudes", "/public/Pages/P_Solicitudes/solicitudes.html"));
         menu.appendChild(crearCerrarSesion());
     }
 }

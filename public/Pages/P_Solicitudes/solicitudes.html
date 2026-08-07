@@ -5,31 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
     <title></title> <!-- Título de la pestaña del navegador -->
     
-    <link rel="icon" type="image/png" href="/global/img/icon.png">
-
-    <link rel="icon" type="image/png" href="/global/img/icon.png">
+    <link rel="icon" type="image/png" href="/public/global/img/icon.png">
 
     <!-- Conexión al archivo CSS externo -->
-    <link rel="stylesheet" href="/global/main.css">
+    <link rel="stylesheet" href="/public/global/main.css">
 
-    <link rel="stylesheet" href="solicitudes.css">
+    <link rel="stylesheet" href="/public/Pages/P_Solicitudes/solicitudes.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="encabezado">
-    <img src="/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
+    <img src="/public/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
 
     <div class="encab-centro">
         <a href="https://upgop.edu.mx/">
-            <img src="/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
+            <img src="/public/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
         </a>
     </div>
     <a href="/" class="titulo-encab"> <!-- Hay que solucionar esta ruta, es la que se le proporciona al servidor desde un incio-->
             ACTIVIDADES EXTRACURRICULARES
         </a>
 
-    <img src="/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
+    <img src="/public/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
 
     <!-- Botón hamburguesa -->
     <div class="hamburger-container">
@@ -66,7 +64,7 @@
             <!-- Primer contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Director del Área de Vinculación</h4>
@@ -77,7 +75,7 @@
             <!-- Segundo contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Secretaria del Área de Vinculación</h4>
@@ -88,7 +86,7 @@
             <!-- Teléfono -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
+                    <img src="/public/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
                 </div>
                 <div>
                     <p>Teléfono: 8711922700</p>
@@ -104,7 +102,7 @@
             <!-- Sitio web -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
+                    <img src="/public/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
                 </div>
                 <div>
                     <p>
@@ -118,7 +116,7 @@
             <!-- Dirección física -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
+                    <img src="/public/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
                 </div>
                 <div>
                     <p>
@@ -269,11 +267,14 @@
     </div>
 </div>
 
+    <!-- JS GLOBAL (autenticación del usuario) -->
+    <script src="/public/global/auth.js"></script>
+
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
-    <script src="/global/main.js"></script>
+    <script src="/public/global/main.js"></script>
 
     <!-- JS LOCAL -->
-    <script src="solicitudes.js"></script>
+    <script src="/public/Pages/P_Solicitudes/solicitudes.js"></script>
 
 </body>
 </html>
