@@ -2,3 +2,5 @@
 // Se tiene que configurar en base al entorno de ejecución
 // Node: "" - nginx "/api"
 const API = "";
+
+module.exports = API;

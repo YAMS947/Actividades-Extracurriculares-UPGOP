@@ -61,7 +61,7 @@ document.getElementById("btnLogin").onclick = async () => {
     }
 
     try {
-        const respuesta = await fetch(`${API}/inicio-sesion`, {
+        const respuesta = await fetch(`${API}/inicio-sesion/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ usuario, contrasena })
