@@ -1,0 +1,140 @@
+/* ===============================
+   TÍTULO
+================================ */
+.bienvenida {
+    font-family: "Inter", sans-serif;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 20px;
+    color: #251F9C;
+}
+
+#horarios {
+    padding: 20px;
+    font-family: "Inter", sans-serif;
+}
+
+.barra-superior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.selector-mes button {
+    background-color: #251F9C;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.selector-mes #textoMes {
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+.selector-taller button {
+    background-color: #1F7AC9;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.menu-talleres {
+    position: absolute;
+    margin-top: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.menu-talleres div {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.menu-talleres div:hover {
+    background-color: #f0f0f0;
+}
+
+.contenedor-calendario {
+    background-color: #3A5B98;
+    border-radius: 8px;
+    border: 1px solid #DAA0B0;
+    z-index: 1;
+}
+
+.calendario {
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.calendario .fila {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    z-index: 1;;
+}
+
+.calendario .encabezado div {
+    background-color: #3A5B98;
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid #DAA0B0;
+    z-index: 1;
+    color: #FFF;
+}
+
+.calendario .dia {
+    padding: 10px;
+    min-height: 60px;
+    border-bottom: 1px solid #DAA0B0;
+    border-right: 1px solid #DAA0B0;
+    text-align: right;
+    position: relative;
+    cursor: pointer;
+}
+
+.calendario .dia.inactivo {
+    background-color: #fafafa;
+    color: #313754;
+    cursor: default;
+}
+
+.calendario .dia.activo-inst,
+.calendario .dia.asistencia {
+    background-color: #c8f7c5; /* verde claro */
+}
+
+.calendario .dia.falta {
+    background-color: #f7c5c5; /* rojo claro */
+}
+
+.calendario .dia.justificacion {
+    background-color: #f7f3c5; /* amarillo claro */
+}
+
+.oculto {
+    display: none;
+}
+
+.calendario-borde-bajo {
+    height: 10px;
+    border-radius: 8px;
+}
+
+.calendario .dia.seleccionable {
+    cursor: pointer !important;
+    background-color: #e0e0e0;
+    border: 1px solid #aaa;
+}
+
+.calendario .dia.no-interaccion {
+    cursor: default !important;
+}

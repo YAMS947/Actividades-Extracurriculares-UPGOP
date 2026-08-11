@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
     <title>Horarios AE UPGOP</title> <!-- Título de la pestaña del navegador -->
     
-    <link rel="icon" type="image/png" href="/global/img/icon.png">
+    <link rel="icon" type="image/png" href="/public/global/img/icon.png">
 
     <!-- Conexión al archivo CSS externo -->
-    <link rel="stylesheet" href="/global/main.css">
+    <link rel="stylesheet" href="/public/global/main.css">
 
-    <link rel="stylesheet" href="calendario.css">
+    <link rel="stylesheet" href="/public/Pages/P_Calendario/calendario.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="encabezado">
-    <img src="/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
+    <img src="/public/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
 
     <div class="encab-centro">
         <a href="https://upgop.edu.mx/">
-            <img src="/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
+            <img src="/public/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
         </a>
     </div>
     <a href="/" class="titulo-encab"> <!-- Hay que solucionar esta ruta, es la que se le proporciona al servidor desde un incio-->
             ACTIVIDADES EXTRACURRICULARES
         </a>
 
-    <img src="/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
+    <img src="/public/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
 
     <!-- Botón hamburguesa -->
     <div class="hamburger-container">
@@ -45,6 +45,42 @@
     
 </header>
 
+<div class="bienvenida">
+    Horarios
+</div>
+
+<div id="horarios">
+
+    <div class="barra-superior">
+        <div class="selector-mes">
+            <button id="btnMesPrev">&lt;</button>
+            <span id="textoMes"></span>
+            <button id="btnMesNext">&gt;</button>
+        </div>
+        <div class="selector-taller" id="contenedorSelectorTaller">
+            <button id="btnSeleccionarTaller">Seleccionar taller</button>
+            <div id="menuTalleres" class="menu-talleres oculto"></div>
+        </div>
+    </div>
+    <section class="contenedor-calendario">
+    <div class="calendario">
+        <div class="fila encabezado">
+            <div>DOMINGO</div>
+            <div>LUNES</div>
+            <div>MARTES</div>
+            <div>MIÉRCOLES</div>
+            <div>JUEVES</div>
+            <div>VIERNES</div>
+            <div>SÁBADO</div>
+        </div>
+        <div id="cuerpoCalendario"></div>
+    </div>
+    <div class="calendario-borde-bajo"></div>
+    </section>
+
+</div>
+
+
 <!-- Pie de página -->
 <footer class="pie_De_Pagina"> <!-- Contenedor principal del footer -->
 
@@ -57,7 +93,7 @@
             <!-- Primer contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Director del Área de Vinculación</h4>
@@ -68,7 +104,7 @@
             <!-- Segundo contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Secretaria del Área de Vinculación</h4>
@@ -79,7 +115,7 @@
             <!-- Teléfono -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
+                    <img src="/public/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
                 </div>
                 <div>
                     <p>Teléfono: 8711922700</p>
@@ -95,7 +131,7 @@
             <!-- Sitio web -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
+                    <img src="/public/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
                 </div>
                 <div>
                     <p>
@@ -109,7 +145,7 @@
             <!-- Dirección física -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
+                    <img src="/public/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
                 </div>
                 <div>
                     <p>
@@ -259,14 +295,26 @@
 
     </div>
 </div>
+
+    <div id="modalErrorGlobal" class="modal-error">
+    <div class="modal-error-card">
+        <h3>Aviso</h3>
+        <p id="modalErrorGlobalMensaje"></p>
+        <button class="btn-error-close" id="btnCerrarErrorGlobal">Cerrar</button>
+    </div>
+</div>
+
+    <!-- JS api (Maneja la ruta de la db) -->
+    <script src="/public/global/api.js"></script>
+
     <!-- JS GLOBAL (autenticación del usuario) -->
-    <script src="/global/auth.js"></script>
+    <script src="/public/global/auth.js"></script>
 
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
-    <script src="/global/main.js"></script>
+    <script src="/public/global/main.js"></script>
 
     <!-- JS LOCAL -->
-    <script src="calendario.js"></script>
+    <script src="/public/Pages/P_Calendario/calendario.js"></script>
 
 </body>
 </html>

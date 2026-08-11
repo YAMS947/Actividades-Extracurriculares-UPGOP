@@ -155,3 +155,8 @@
     margin-right: auto;
     cursor: pointer;
 }
+
+input[type="text"],
+input[type="password"] {
+    text-transform: none !important;
+}

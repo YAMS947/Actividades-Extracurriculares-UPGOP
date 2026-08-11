@@ -1,4 +1,4 @@
-if (isLoggedIn()) {
+ if (isLoggedIn()) {
     window.location.href = "/";
 }
 
@@ -20,6 +20,24 @@ document.querySelector(".link-terminos").onclick = () => {
     document.getElementById("modalTerminos").style.display = "flex";
 };
 
+function capitalizarNombreCompleto(texto) {
+    if (!texto) return "";
+
+    return texto
+        .toLowerCase()
+        .replace(/\s+/g, " ") // evitar dobles espacios
+        .trim()
+        .split(" ")
+        .map(p => {
+            const excepciones = ["de", "del", "la", "las", "los", "y"];
+            return excepciones.includes(p)
+                ? p
+                : p.charAt(0).toUpperCase() + p.slice(1);
+        })
+        .join(" ");
+}
+
+
 function camposVacios(campos) {
     return campos.some(c => c.trim() === "");
 }
@@ -35,25 +53,20 @@ function limpiarRegistro() {
     document.getElementById("aceptarTerminos").checked = false;
 }
 
-function mostrarError(mensaje) {
-    document.getElementById("modalErrorMensaje").textContent = mensaje;
-    document.getElementById("modalError").classList.add("visible");
-}
-
-document.getElementById("cerrarError").onclick = () => {
-    document.getElementById("modalError").classList.remove("visible");
-};
-
-document.getElementById("modalError").onclick = (e) => {
-    if (e.target.id === "modalError") {
-        document.getElementById("modalError").classList.remove("visible");
-    }
-};
-
 document.getElementById("btnLogin").onclick = async () => {
 
     const usuario = document.getElementById("loginUsuario").value.trim();
     const contrasena = document.getElementById("loginPassword").value.trim();
+
+    if (usuario !== document.getElementById("loginUsuario").value) {
+        mostrarError("El usuario distingue entre mayúsculas y minúsculas.");
+        return;
+    }
+
+    if (contrasena !== document.getElementById("loginPassword").value) {
+        mostrarError("La contraseña distingue entre mayúsculas y minúsculas.");
+        return;
+    }
 
     if (camposVacios([usuario, contrasena])) {
         mostrarError("Usuario o contraseña incorrectos.");
@@ -61,14 +74,13 @@ document.getElementById("btnLogin").onclick = async () => {
     }
 
     try {
-        const respuesta = await fetch("/inicio-sesion", {
+        const respuesta = await fetch(`${API}/inicio-sesion/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ usuario, contrasena })
         });
 
         const data = await respuesta.json();
-
         if (!respuesta.ok) {
             mostrarError(data.error || "Usuario o contraseña incorrectos.");
             return;
@@ -81,7 +93,7 @@ document.getElementById("btnLogin").onclick = async () => {
                 userId: data.id_usuario
             });
         }
-        else {
+        if (data.tipo_usuario === "INST") {
             setUser({
                 userType: data.tipo_usuario,
                 userName: usuario,
@@ -90,7 +102,16 @@ document.getElementById("btnLogin").onclick = async () => {
                 userNameTaller: data.nombre_taller
             });
         }
-
+        if (data.tipo_usuario === "ALUM") {
+            setUser({
+                userType: data.tipo_usuario,
+                userName: usuario,
+                userId: data.id_usuario,
+                userIdTaller: data.id_taller,
+                userNameTaller: data.nombre_taller,
+                fechaIngreso: data.fecha_ingreso
+            });
+        }
         window.location.href = "/";
 
     } catch (error) {
@@ -100,14 +121,62 @@ document.getElementById("btnLogin").onclick = async () => {
 
 document.getElementById("btnGuardar").onclick = async () => {
 
-    const nombre = document.getElementById("regNombre").value.trim();
-    const apellido_paterno = document.getElementById("regApellidoP").value.trim();
-    const apellido_materno = document.getElementById("regApellidoM").value.trim();
-    const matricula = document.getElementById("regMatricula").value.trim();
     const usuario = document.getElementById("regUsuario").value.trim();
     const contrasena = document.getElementById("regPassword").value.trim();
     const contrasena2 = document.getElementById("regPassword2").value.trim();
     const terminos = document.getElementById("aceptarTerminos").checked;
+
+    let nombre = capitalizarNombreCompleto(document.getElementById("regNombre").value.trim());
+    let apellido_paterno = capitalizarNombreCompleto(document.getElementById("regApellidoP").value.trim());
+    let apellido_materno = capitalizarNombreCompleto(document.getElementById("regApellidoM").value.trim());
+    let matricula = document.getElementById("regMatricula").value.trim().replace(/\s+/g, "");
+
+    const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+
+    // Validar nombre
+    if (!soloLetras.test(nombre)) {
+        mostrarError("El nombre solo puede contener letras y espacios.");
+        return;
+    }
+    if (nombre.length < 2) {
+        mostrarError("El nombre debe tener al menos 2 caracteres.");
+        return;
+    }
+    if (nombre.length > 35) {
+        mostrarError("El nombre no puede tener más de 35 caracteres.");
+        return;
+    }
+
+    // Validar apellidos
+    if (!soloLetras.test(apellido_paterno)) {
+        mostrarError("El apellido paterno solo puede contener letras y espacios.");
+        return;
+    }
+    if (!soloLetras.test(apellido_materno)) {
+        mostrarError("El apellido materno solo puede contener letras y espacios.");
+        return;
+    }
+
+    if (apellido_paterno.length < 2 || apellido_materno.length < 2) {
+        mostrarError("Los apellidos deben tener al menos 2 caracteres.");
+        return;
+    }
+
+    if (apellido_paterno.length > 20 || apellido_materno.length > 20) {
+        mostrarError("Los apellidos no pueden tener más de 20 caracteres.");
+        return;
+    }
+
+
+    if (usuario !== document.getElementById("regUsuario").value) {
+        mostrarError("El usuario distingue entre mayúsculas y minúsculas.");
+        return;
+    }
+
+    if (contrasena !== document.getElementById("regPassword").value) {
+        mostrarError("La contraseña distingue entre mayúsculas y minúsculas.");
+        return;
+    }
 
     if (camposVacios([nombre, apellido_paterno, apellido_materno, matricula, usuario, contrasena, contrasena2])) {
         mostrarError("Todos los campos son obligatorios.");
@@ -130,8 +199,13 @@ document.getElementById("btnGuardar").onclick = async () => {
         return;
     }
 
+    if (!/^\d{8}$/.test(matricula)) {
+        mostrarError("La matrícula debe tener exactamente 8 dígitos.");
+        return;
+    }
+
     try {
-        const respuesta = await fetch("/inicio-sesion/registro-alumno", {
+        const respuesta = await fetch(`${API}/inicio-sesion/registro-alumno`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

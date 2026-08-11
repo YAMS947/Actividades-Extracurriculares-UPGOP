@@ -7,7 +7,6 @@ const db = require('./db'); // conexión MySQL
 const app = express(); // Inicializa la app de express
 const cors = require('cors');
 
-
 // ===============================
 //  MIDDLEWARES
 // ===============================
@@ -18,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Permite la comunicación entre el Front-End y el Back-End
 // Incluso cuando tienen origenes diferentes
@@ -29,7 +28,7 @@ app.use(cors());
 //  RUTA PRINCIPAL (HTML)
 // ===============================
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'P_Principal', 'index.html'));// Encuentra la ruta de la primer página a mostrar
+    res.sendFile(path.join(__dirname, 'index.html'));// Encuentra la ruta de la primer página a mostrar
 });
 
 // =======================
@@ -67,32 +66,40 @@ const registrarSolicitudRoutes = require('./routes/Registrar_Solicitud');
 // REGISTRAR RUTAS
 // =======================
 
+const API = require("./api");
+
 // Inicio de sesión
-app.use('/inicio-sesion', inicioSesionRoutes);
+app.use(`${API}/inicio-sesion`, inicioSesionRoutes);
 
 // Gestión de un alumno
-app.use('/gestion-alumno', gestionAlumnoRoutes);
+app.use(`${API}/gestion-alumno`, gestionAlumnoRoutes);
 
 // Gestión de alumnos (lista, alta)
-app.use('/gestion-alumnos', gestionAlumnosRoutes);
+app.use(`${API}/gestion-alumnos`, gestionAlumnosRoutes);
 
 // Gestión de un instructor
-app.use('/gestion-instructor', gestionInstructorRoutes);
+app.use(`${API}/gestion-instructor`, gestionInstructorRoutes);
 
 // Gestión de instructores (lista, alta)
-app.use('/gestion-instructores', gestionInstructoresRoutes);
+app.use(`${API}/gestion-instructores`, gestionInstructoresRoutes);
 
 // Pase de lista
-app.use('/pase-lista', paseListaRoutes);
+app.use(`${API}/pase-lista`, paseListaRoutes);
 
 // Calendario
-app.use('/calendario', calendarioRoutes);
+app.use(`${API}/calendario`, calendarioRoutes);
 
 // Solicitudes (gestor/instructor)
-app.use('/solicitudes', solicitudesRoutes);
+app.use(`${API}/solicitudes`, solicitudesRoutes);
 
 // Registrar solicitud (alumno)
-app.use('/registrar-solicitud', registrarSolicitudRoutes);
+app.use(`${API}/registrar-solicitud`, registrarSolicitudRoutes);
+
+app.use((req, res, next) => {
+    console.log("Petición recibida:", req.method, req.originalUrl);
+    next();
+});
+
 
 // ===============================
 //  INICIAR SERVIDOR

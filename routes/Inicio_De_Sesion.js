@@ -20,45 +20,40 @@ const db = require('../db');
 // - id_taller (si aplica)
 // - nombre_taller (si aplica)
 // ============================================================
-router.post('/', (req, res) => {
-    // Extraemos usuario y contraseña del body
-    const { usuario, contrasena } = req.body;
+router.post("/", (req, res) => {
 
-    // Consulta SQL para validar credenciales
-    const sqlLogin = `
-        SELECT 
-            id_usuario,
-            usuario,
-            tipo_usuario
+    const usuario = req.body.usuario;
+    const contrasena = req.body.contrasena;
+
+    if (!usuario || !contrasena) {
+        return res.status(400).json({ error: "Usuario o contraseña incorrectos." });
+    }
+
+    const sqlUsuario = `
+        SELECT id_usuario, usuario, contrasena, tipo_usuario
         FROM usuarios
-        WHERE usuario = ? AND contrasena = ?;
+        WHERE usuario = ?;
     `;
 
-    // Ejecutamos la consulta
-    db.query(sqlLogin, [usuario, contrasena], (err, result) => {
+    db.query(sqlUsuario, [usuario], (err, result) => {
         if (err) {
-            console.error("Error en inicio de sesión:", err);
-            return res.status(500).json({ error: "Error en el servidor" });
+            console.error("Error al obtener usuario:", err);
+            return res.status(500).json({ error: "Error al obtener usuario" });
         }
 
-        // Si no se encontró el usuario
         if (result.length === 0) {
-            return res.status(401).json({ error: "Usuario o contraseña incorrectos" });
+            return res.status(400).json({ error: "Usuario o contraseña incorrectos." });
         }
 
-        // Extraemos datos del usuario
         const user = result[0];
 
-        // Si el usuario es GESTOR, no tiene taller asignado
-        if (user.tipo_usuario === "GEST") {
-            return res.json({
-                mensaje: "Inicio de sesión exitoso 3",
-                id_usuario: user.id_usuario,
-                tipo_usuario: user.tipo_usuario
-            });
+        if (user.contrasena !== contrasena) {
+            return res.status(400).json({ error: "Usuario o contraseña incorrectos." });
         }
 
-        // Si el usuario es ALUM o INST, obtenemos su taller
+        // ============================
+        // OBTENER TALLER DEL USUARIO
+        // ============================
         const sqlTaller = `
             SELECT 
                 taller.id_taller,
@@ -75,29 +70,57 @@ router.post('/', (req, res) => {
                 return res.status(500).json({ error: "Error al obtener taller" });
             }
 
-            // Si no tiene taller asignado (caso raro)
-            if (tallerResult.length === 0) {
+            const taller = tallerResult.length > 0
+                ? tallerResult[0]
+                : { id_taller: null, nombre_taller: null };
+
+            // ============================
+            // OBTENER FECHA DE INGRESO (ALUM)
+            // ============================
+            if (user.tipo_usuario === "ALUM") {
+
+            const sqlFechaIngreso = `
+                SELECT fecha
+                FROM fecha_ingreso
+                WHERE id_usuario = ? AND id_taller = ?;
+            `;
+
+            db.query(sqlFechaIngreso, [user.id_usuario, taller.id_taller], (err, fechaResult) => {
+                if (err) {
+                    console.error("Error al obtener fecha de ingreso:", err);
+                    return res.status(500).json({ error: "Error al obtener fecha de ingreso" });
+                }
+
+                const fechaIngreso = fechaResult.length > 0
+                    ? fechaResult[0].fecha
+                    : null;
+                console.log("La fecha ingreso de la ruta es: ",fechaIngreso)
                 return res.json({
-                    mensaje: "Inicio de sesión exitoso 2",
+                    mensaje: "Inicio de sesión exitoso",
                     id_usuario: user.id_usuario,
                     tipo_usuario: user.tipo_usuario,
-                    id_taller: null,
-                    nombre_taller: null
+                    id_taller: taller.id_taller,
+                    nombre_taller: taller.nombre_taller,
+                    fecha_ingreso: fechaIngreso
+                });
+            });
+        }
+            else {
+                console.log("Se considero no alumno")
+                // INST y GEST no tienen fecha de ingreso
+                return res.json({
+                    mensaje: "Inicio de sesión exitoso",
+                    id_usuario: user.id_usuario,
+                    tipo_usuario: user.tipo_usuario,
+                    id_taller: taller.id_taller,
+                    nombre_taller: taller.nombre_taller,
+                    fecha_ingreso: null
                 });
             }
-
-            // Taller encontrado
-            const taller = tallerResult[0];
-            res.json({
-                mensaje: "Inicio de sesión exitoso 1",
-                id_usuario: user.id_usuario,
-                tipo_usuario: user.tipo_usuario,
-                id_taller: user.id_taller,
-                nombre_taller: user.nombre_taller
-            });
         });
     });
 });
+
 
 // ============================================================
 // RUTA: Registro de alumno
@@ -178,7 +201,7 @@ router.post('/registro-alumno', (req, res) => {
 
                     res.json({
                     mensaje: "registro_exitoso",
-                    id_usuario: user.id_usuario
+                    id_usuario: id_usuario
                     });
                 });
             }

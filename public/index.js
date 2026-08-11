@@ -15,9 +15,9 @@ const img = document.getElementById("img-carrusel");
 
 // Colocar ruta de imagen (tú la reemplazas)
 function mostrarTaller() {
-    img.src = `/global/img/principal/${talleres[indice]}.png`;
+    img.src = `/public/global/img/principal/${talleres[indice]}.png`;
     img.onclick = () => {
-        location.href = `/Pages/P_Talleres/${talleres[indice]}/${talleres[indice]}.html`;
+        location.href = `/public/Pages/P_Talleres/${talleres[indice]}/${talleres[indice]}.html`;
     };
 }
 

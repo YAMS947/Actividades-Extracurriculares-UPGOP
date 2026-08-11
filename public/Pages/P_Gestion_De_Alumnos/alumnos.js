@@ -2,8 +2,8 @@
 // 1. Seguridad
 // ===============================
 if (!isLoggedIn()) {
-    alert("No tienes una sesión activa.");
-    window.location.href = "../P_Inicio_De_Sesion/inicioSesion.html";
+    mostrarError("No tienes una sesión activa.");
+    window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
 const usuario = getUser();
@@ -32,11 +32,33 @@ const btnAceptarAviso = document.getElementById("btnAceptarAviso");
 
 let tallerSeleccionado = null;
 
+// ================================
+// Funcion de blindado de alta
+// ================================
+function capitalizarNombreCompleto(texto) {
+    if (!texto) return "";
+
+    return texto
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim()
+        .split(" ")
+        .map(p => {
+            const excepciones = ["de", "del", "la", "las", "los", "y"];
+            return excepciones.includes(p)
+                ? p
+                : p.charAt(0).toUpperCase() + p.slice(1);
+        })
+        .join(" ");
+}
+
+
+
 // ===============================
 // 3. Cargar talleres (solo GEST)
 // ===============================
 async function cargarTalleres() {
-    const res = await fetch("/gestion-alumnos/talleres");
+    const res = await fetch(`${API}/gestion-alumnos/talleres`);
     const data = await res.json();
 
     menuTalleres.innerHTML = "";
@@ -70,7 +92,7 @@ async function cargarAlumnos() {
         body.id_taller = tallerSeleccionado;
     }
 
-    const res = await fetch("/gestion-alumnos/lista", {
+    const res = await fetch(`${API}/gestion-alumnos/lista`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -92,7 +114,7 @@ async function cargarAlumnos() {
 
         tr.onclick = () => {
             localStorage.setItem("alumnoSeleccionado", JSON.stringify(a));
-            window.location.href = "../P_Gestion_De_Alumno/alumno.html";
+            window.location.href = "/public/Pages/P_Gestion_De_Alumno/alumno.html";
         };
 
         tabla.appendChild(tr);
@@ -129,41 +151,77 @@ btnCancelarAlta.onclick = () => modalAlta.classList.add("oculto");
 // ===============================
 btnConfirmarAlta.onclick = async () => {
 
-    const nombre = document.getElementById("altaNombre").value.trim();
-    const ap = document.getElementById("altaApellidoP").value.trim();
-    const am = document.getElementById("altaApellidoM").value.trim();
-    const matricula = document.getElementById("altaMatricula").value.trim();
+    let nombre    = capitalizarNombreCompleto(document.getElementById("altaNombre").value.trim());
+    let apP       = capitalizarNombreCompleto(document.getElementById("altaApellidoP").value.trim());
+    let apM       = capitalizarNombreCompleto(document.getElementById("altaApellidoM").value.trim());
+    let matricula = document.getElementById("altaMatricula").value.trim().replace(/\s+/g, "");
     const usuario = document.getElementById("altaUsuario").value.trim();
-    const pass = document.getElementById("altaPassword").value.trim();
-    const pass2 = document.getElementById("altaPassword2").value.trim();
+    const pass    = document.getElementById("altaPassword").value.trim();
+    const pass2   = document.getElementById("altaPassword2").value.trim();
 
     if (!tallerSeleccionado) {
-        alert("Selecciona un taller.");
+        mostrarError("Selecciona un taller.");
         return;
     }
 
-    if (!nombre || !ap || !am || !matricula || !usuario || !pass || !pass2) {
-        alert("Todos los campos son obligatorios.");
+    const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+
+    // Validar nombre
+    if (!soloLetras.test(nombre)) {
+        mostrarError("El nombre solo puede contener letras y espacios.");
+        return;
+    }
+    if (nombre.length < 2 || nombre.length > 35) {
+        mostrarError("El nombre debe tener entre 2 y 35 caracteres.");
         return;
     }
 
+    // Validar apellidos
+    if (!soloLetras.test(apP) || !soloLetras.test(apM)) {
+        mostrarError("Los apellidos solo pueden contener letras y espacios.");
+        return;
+    }
+    if (apP.length < 2 || apP.length > 20 || apM.length < 2 || apM.length > 20) {
+        mostrarError("Cada apellido debe tener entre 2 y 20 caracteres.");
+        return;
+    }
+
+    // Validar matrícula
+    if (!/^\d{8}$/.test(matricula)) {
+        mostrarError("La matrícula debe tener exactamente 8 dígitos.");
+        return;
+    }
+
+    // Validar usuario case-sensitive
+    if (usuario !== document.getElementById("altaUsuario").value) {
+        mostrarError("El usuario distingue entre mayúsculas y minúsculas.");
+        return;
+    }
+
+    // Validar contraseña case-sensitive
+    if (pass !== document.getElementById("altaPassword").value) {
+        mostrarError("La contraseña distingue entre mayúsculas y minúsculas.");
+        return;
+    }
+
+    // Validar contraseñas
     if (pass.length < 8) {
-        alert("La contraseña debe tener al menos 8 caracteres.");
+        mostrarError("La contraseña debe tener al menos 8 caracteres.");
         return;
     }
-
     if (pass !== pass2) {
-        alert("Las contraseñas no coinciden.");
+        mostrarError("Las contraseñas no coinciden.");
         return;
     }
 
-    const res = await fetch("/gestion-alumnos/alta", {
+    // Enviar datos blindados
+    const res = await fetch(`${API}/gestion-alumnos/alta`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             nombre,
-            apellido_paterno: ap,
-            apellido_materno: am,
+            apellido_paterno: apP,
+            apellido_materno: apM,
             matricula,
             usuario,
             contrasena: pass,
@@ -180,6 +238,7 @@ btnConfirmarAlta.onclick = async () => {
     }
 };
 
+
 // ===============================
 // 8. Aviso inscrito
 // ===============================
@@ -189,7 +248,7 @@ btnAceptarAviso.onclick = () => avisoInscrito.classList.add("oculto");
 // 9. Documento (simple)
 // ===============================
 btnDocumento.onclick = () => {
-    alert("Documento se implementará si queda tiempo.");
+    mostrarError("Documento se implementará si queda tiempo.");
 };
 
 // ===============================
@@ -200,7 +259,7 @@ if (usuario.userType === "INST") {
 }
 
 async function cargarTalleresAlta() {
-    const res = await fetch("/gestion-alumnos/talleres");
+    const res = await fetch(`${API}/gestion-alumnos/talleres`);
     const data = await res.json();
 
     const menu = document.getElementById("menuTalleresAlta");
@@ -232,3 +291,47 @@ if (usuario.userType === "GEST") {
     btnSeleccionarTaller.style.display = "none";
 }
 
+modalAlta.addEventListener("click", (e) => {
+    // Si el clic fue en el fondo (overlay), cerrar
+    if (e.target === modalAlta) {
+        modalAlta.classList.add("oculto");
+    }
+});
+
+document.addEventListener("click", (e) => {
+
+    // ===============================
+    // 1. Menú de talleres dentro del modal de alta
+    // ===============================
+    const menuAlta = document.getElementById("menuTalleresAlta");
+
+    if (menuAlta && !menuAlta.classList.contains("oculto")) {
+
+        // Si el clic fue dentro del menú → no cerrar
+        if (menuAlta.contains(e.target)) return;
+
+        // Si el clic fue en el botón de abrir menú → no cerrar
+        if (e.target === btnSeleccionarTaller) return;
+
+        // Si el clic fue fuera → cerrar
+        menuAlta.classList.add("oculto");
+    }
+
+    // ===============================
+    // 2. Menú de talleres principal (GEST)
+    // ===============================
+    const menuPrincipal = document.getElementById("menuTalleres");
+
+    if (menuPrincipal && !menuPrincipal.classList.contains("oculto")) {
+
+        // Si el clic fue dentro del menú → no cerrar
+        if (menuPrincipal.contains(e.target)) return;
+
+        // Si el clic fue en el botón de abrir menú → no cerrar
+        if (e.target === btnTaller) return;
+
+        // Si el clic fue fuera → cerrar
+        menuPrincipal.classList.add("oculto");
+    }
+
+});

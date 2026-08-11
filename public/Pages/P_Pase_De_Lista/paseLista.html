@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste para pantallas móviles -->
     <title></title> <!-- Título de la pestaña del navegador -->
     
-    <link rel="icon" type="image/png" href="/global/img/icon.png">
+    <link rel="icon" type="image/png" href="/public/global/img/icon.png">
 
     <!-- Conexión al archivo CSS externo -->
-    <link rel="stylesheet" href="/global/main.css">
+    <link rel="stylesheet" href="/public/global/main.css">
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/public/Pages/P_Pase_De_Lista/paseLista.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="encabezado">
-    <img src="/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
+    <img src="/public/global/img/encabezado/diseño_encabezado_izquierdo.png" class="encab-izq" alt="Decoración izquierda">
 
     <div class="encab-centro">
         <a href="https://upgop.edu.mx/">
-            <img src="/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
+            <img src="/public/global/img/encabezado/Logo.png" class="logo-upgop" alt="Logo UPGOP">
         </a>
     </div>
     <a href="/" class="titulo-encab"> <!-- Hay que solucionar esta ruta, es la que se le proporciona al servidor desde un incio-->
             ACTIVIDADES EXTRACURRICULARES
         </a>
 
-    <img src="/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
+    <img src="/public/global/img/encabezado/diseño_encabezado_derecho.png" class="encab-der" alt="Decoración derecha">
 
     <!-- Botón hamburguesa -->
     <div class="hamburger-container">
@@ -46,7 +46,58 @@
 </header>
 
 <!-- Inicio del contenido del cuerpo de la página -->
+<button id="btnRegresar" class="btn-regresar">← Regresar</button>
 
+<div class="bienvenida">
+    Horarios
+</div>
+
+<div class="info-superior">
+        <div class="info-item">
+            <span class="label">Fecha:</span>
+            <span id="etiquetaFecha" class="valor"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Taller:</span>
+            <span id="etiquetaTaller" class="valor"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Estado del día:</span>
+            <span id="indicadorDia" class="valor estado-dia"></span>
+        </div>
+        <button id="btnDesactivarDia" class="btn-desactivar">Desactivar día</button>
+    </div>
+<section class="contenedor-principal">
+    <div class="contenedor-tabla">
+        <table class="tabla-pase-lista">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Matrícula</th>
+                    <th>Asistencia</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoPaseLista">
+                <!-- Aquí se insertan los alumnos -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="leyenda">
+        <h3>Leyenda</h3>
+        <div class="leyenda-item">
+            <span class="icono icono-asistencia"></span> ASISTENCIA
+        </div>
+        <div class="leyenda-item">
+            <span class="icono icono-justificacion"></span> JUSTIFICACIÓN
+        </div>
+        <div class="leyenda-item">
+            <span class="icono icono-falta"></span> INASISTENCIA
+        </div>
+    </div>
 <!-- Fin del contenido del cuerpo de la página -->
 
 <!-- Pie de página -->
@@ -61,7 +112,7 @@
             <!-- Primer contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Director del Área de Vinculación</h4>
@@ -72,7 +123,7 @@
             <!-- Segundo contacto -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
+                    <img src="/public/global/img/pie de pagina/correo-electronico 1.png" alt="Correo" width="35"> <!-- Icono de correo -->
                 </div>
                 <div>
                     <h4>Secretaria del Área de Vinculación</h4>
@@ -83,7 +134,7 @@
             <!-- Teléfono -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
+                    <img src="/public/global/img/pie de pagina/llamada 1.png" alt="Teléfono" width="35"> <!-- Icono de teléfono -->
                 </div>
                 <div>
                     <p>Teléfono: 8711922700</p>
@@ -99,7 +150,7 @@
             <!-- Sitio web -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
+                    <img src="/public/global/img/pie de pagina/navegador 1.png" alt="Sitio Web" width="35"> <!-- Icono navegador -->
                 </div>
                 <div>
                     <p>
@@ -113,7 +164,7 @@
             <!-- Dirección física -->
             <div class="dato_Contacto">
                 <div class="icono">
-                    <img src="/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
+                    <img src="/public/global/img/pie de pagina/pin-de-ubicacion 1.png" alt="Ubicación" width="35"> <!-- Icono ubicación -->
                 </div>
                 <div>
                     <p>
@@ -264,11 +315,25 @@
     </div>
 </div>
 
+    <div id="modalErrorGlobal" class="modal-error">
+    <div class="modal-error-card">
+        <h3>Aviso</h3>
+        <p id="modalErrorGlobalMensaje"></p>
+        <button class="btn-error-close" id="btnCerrarErrorGlobal">Cerrar</button>
+    </div>
+    </div>
+
+    <!-- JS api (Maneja la ruta de la db) -->
+    <script src="/public/global/api.js"></script>
+    
+    <!-- JS GLOBAL (autenticación del usuario) -->
+    <script src="/public/global/auth.js"></script>
+
     <!-- JS GLOBAL (encabezado + menú hamburguesa) -->
-    <script src="/global/main.js"></script>
+    <script src="/public/global/main.js"></script>
 
     <!-- JS LOCAL -->
-    <script src=""></script>
+    <script src="/public/Pages/P_Pase_De_Lista/paseLista.js"></script>
 
 </body>
 </html>

@@ -2,15 +2,25 @@
 // 1. Seguridad y contexto
 // ===============================
 if (!isLoggedIn()) {
-    alert("No tienes una sesión activa.");
-    window.location.href = "../P_Inicio_De_Sesion/inicioSesion.html";
+    mostrarError("No tienes una sesión activa.");
+    window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
 const usuario = getUser();
 
 if (usuario.userType !== "ALUM" && usuario.userType !== "INST" && usuario.userType !== "GEST") {
-    alert("No autorizado.");
+    mostrarError("No autorizado.");
     window.location.href = "/";
+}
+
+if (user.userType === "ALUM") {
+    document.getElementById("btnRegresar").classList.add("oculto");
+}
+
+if (usuario.userType !== "ALUM"){
+    document.getElementById("btnRegresar").onclick = () => {
+        window.location.href = "/public/Pages/P_Gestion_De_Alumnos/alumnos.html";
+    };
 }
 
 // ===============================
@@ -57,8 +67,8 @@ function construirBodyDatos() {
 
     const seleccionadoStr = localStorage.getItem("alumnoSeleccionado");
     if (!seleccionadoStr) {
-        alert("No se seleccionó ningún alumno.");
-        window.location.href = "../P_Gestion_De_Alumnos/alumnos.html";
+        mostrarError("No se seleccionó ningún alumno.");
+        window.location.href = "/public/Pages/P_Gestion_De_Alumnos/alumnos.html";
         return null;
     }
 
@@ -74,11 +84,20 @@ function construirBodyDatos() {
 // ===============================
 // 4. Cargar datos del alumno
 // ===============================
+function formatearFecha(fechaISO) {
+    if (!fechaISO) return "";
+    const fecha = new Date(fechaISO);
+    const dia = fecha.getDate().toString().padStart(2, "0");
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
+    const anio = fecha.getFullYear();
+    return `${dia}/${mes}/${anio}`;
+}
+
 async function cargarDatosAlumno() {
     const body = construirBodyDatos();
     if (!body) return;
 
-    const res = await fetch("/gestion-alumno/datos", {
+    const res = await fetch(`${API}/gestion-alumno/datos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -87,7 +106,7 @@ async function cargarDatosAlumno() {
     const data = await res.json();
 
     if (data.error) {
-        alert("Error al obtener datos del alumno: " + data.error);
+        mostrarError("Error al obtener datos del alumno: " + data.error);
         return;
     }
 
@@ -114,7 +133,7 @@ async function cargarDatosAlumno() {
     celMatricula.textContent    = matric;
     celTaller.textContent       = taller;
     celTelefono.textContent     = tel;
-    celFechaIngreso.textContent = fecha;
+    celFechaIngreso.textContent = formatearFecha(fecha);
     celAsistencias.textContent  = `${asistAct} de ${asistTot}`;
 
     // Seguridad extra: si es ALUM y no es su propio id, no puede modificar
@@ -188,6 +207,9 @@ function desactivarEdicion() {
 // 6. Menú de carreras y grados
 // ===============================
 function mostrarMenuCarreras() {
+    // Cerrar menú de grados si está abierto
+    menuGrados.classList.add("oculto");
+
     menuCarreras.innerHTML = "";
     listaCarreras.forEach(c => {
         const div = document.createElement("div");
@@ -205,7 +227,11 @@ function mostrarMenuCarreras() {
     menuCarreras.classList.remove("oculto");
 }
 
+
 function mostrarMenuGrados() {
+    // Cerrar menú de carreras si está abierto
+    menuCarreras.classList.add("oculto");
+
     menuGrados.innerHTML = "";
     for (let i = 1; i <= 10; i++) {
         const div = document.createElement("div");
@@ -223,47 +249,75 @@ function mostrarMenuGrados() {
     menuGrados.classList.remove("oculto");
 }
 
+
 // ===============================
 // 7. Validaciones antes de guardar
 // ===============================
 function validarDatosEditados() {
-    const nombre    = celNombre.textContent.trim();
-    const apellidos = celApellidos.textContent.trim();
+   const nombre    = celNombre.textContent.trim().replace(/\s+/g, " ");
+const apellidos = celApellidos.textContent.trim().replace(/\s+/g, " ");
     const carrera   = celCarrera.textContent.trim();
     const gradoTxt  = celGrado.textContent.trim();
     const matricula = celMatricula.textContent.trim();
     const telefono  = celTelefono.textContent.trim();
 
-    if (!nombre || !apellidos || !matricula) {
-    alert("Nombre, apellidos y matrícula son obligatorios.");
+   // Validar contenido
+const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+
+if (!soloLetras.test(nombre)) {
+    mostrarError("El nombre solo puede contener letras y espacios.");
     return null;
-    }
+}
 
-    if (nombre.length > 35) {
-        alert("El nombre no puede tener más de 35 caracteres.");
-        return null;
-    }
+if (!soloLetras.test(apellidos)) {
+    mostrarError("Los apellidos solo pueden contener letras y espacios.");
+    return null;
+}
 
-    if (apellidos.length > 20) {
-        alert("Los apellidos no pueden tener más de 20 caracteres.");
-        return null;
-    }
+if (nombre.length < 2) {
+    mostrarError("El nombre debe tener al menos 2 caracteres.");
+    return null;
+}
+
+if (apellidos.length < 2) {
+    mostrarError("Los apellidos deben tener al menos 2 caracteres.");
+    return null;
+}
+
+if (nombre.length > 35) {
+    mostrarError("El nombre no puede tener más de 35 caracteres.");
+    return null;
+}
+
+if (apellidos.length > 50) {
+    mostrarError("Los apellidos no pueden tener más de 20 caracteres.");
+    return null;
+}
 
     if (!/^\d{8}$/.test(matricula)) {
-        alert("La matrícula debe tener exactamente 8 dígitos.");
+        mostrarError("La matrícula debe tener exactamente 8 dígitos.");
         return null;
     }
 
-   // Teléfono opcional: si está vacío, se acepta.
-    // Si tiene contenido, debe ser solo dígitos y máximo 15.
-    if (telefono && !/^\d{0,15}$/.test(telefono)) {
-        alert("El número telefónico no puede tener más de 15 dígitos.");
+    // Teléfono opcional:
+    // ✔ vacío permitido
+    // ✔ entre 10 y 15 dígitos permitido
+    // ❌ entre 1 y 9 dígitos NO permitido
+    // ❌ más de 15 dígitos NO permitido
+    if (telefono.length > 0 && (telefono.length < 10 || telefono.length > 15)) {
+        mostrarError("El número telefónico debe tener entre 10 y 15 dígitos, o estar vacío.");
         return null;
     }
+
+    if (telefono && !/^\d+$/.test(telefono)) {
+        mostrarError("El número telefónico solo puede contener dígitos.");
+        return null;
+    }
+
 
     const gradoNum = gradoTxt.replace("°", "");
     if (!/^\d+$/.test(gradoNum) || Number(gradoNum) < 1 || Number(gradoNum) > 10) {
-        alert("El grado debe estar entre 1° y 10°.");
+        mostrarError("El grado debe estar entre 1° y 10°.");
         return null;
     }
 
@@ -311,7 +365,7 @@ async function guardarCambios() {
         body.matricula = datosAlumno.matricula;
     }
 
-    const res = await fetch("/gestion-alumno/actualizar", {
+    const res = await fetch(`${API}/gestion-alumno/actualizar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -320,11 +374,11 @@ async function guardarCambios() {
     const data = await res.json();
 
     if (data.error) {
-        alert("Error al actualizar datos: " + data.error);
+        mostrarError("Error al actualizar datos: " + data.error);
         return;
     }
 
-    alert("Datos del alumno actualizados correctamente.");
+    mostrarError("Datos del alumno actualizados correctamente.");
     desactivarEdicion();
     cargarDatosAlumno();
 }
@@ -334,7 +388,7 @@ async function guardarCambios() {
 // ===============================
 btnModificar.onclick = () => {
     if (usuario.userType === "ALUM" && String(datosAlumno.id_usuario) !== String(usuario.userId)) {
-        alert("No puedes modificar datos de otro alumno.");
+        mostrarError("No puedes modificar datos de otro alumno.");
         return;
     }
 
@@ -356,7 +410,7 @@ cerrarModalBaja.onclick = () => modalBaja.classList.add("oculto");
 btnCancelarBaja.onclick = () => modalBaja.classList.add("oculto");
 
 btnConfirmarBaja.onclick = async () => {
-    const res = await fetch("/gestion-alumno/baja", {
+    const res = await fetch(`${API}/gestion-alumno/baja`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id_usuario: datosAlumno.id_usuario })
@@ -365,11 +419,11 @@ btnConfirmarBaja.onclick = async () => {
     const data = await res.json();
 
     if (data.error) {
-        alert("Error al dar de baja al alumno del taller: " + data.error);
+        mostrarError("Error al dar de baja al alumno del taller: " + data.error);
         return;
     }
 
-    alert("Alumno dado de baja del taller correctamente.");
+    mostrarError("Alumno dado de baja del taller correctamente.");
     modalBaja.classList.add("oculto");
     cargarDatosAlumno();
 };
@@ -378,7 +432,7 @@ btnConfirmarBaja.onclick = async () => {
 // 11. Documento (simple)
 // ===============================
 btnDocumento.onclick = () => {
-    alert("Documento se implementará más adelante.");
+    mostrarError("Documento se implementará más adelante.");
 };
 
 // ===============================
@@ -391,3 +445,53 @@ btnCancelarEdicion.onclick = () => {
     desactivarEdicion();
     cargarDatosAlumno(); // restaurar valores originales
 };
+
+document.addEventListener("click", (e) => {
+    // Si el clic NO fue en celCarrera ni en el menú de carreras → cerrar
+    if (!menuCarreras.contains(e.target) && e.target !== celCarrera) {
+        menuCarreras.classList.add("oculto");
+    }
+
+    // Si el clic NO fue en celGrado ni en el menú de grados → cerrar
+    if (!menuGrados.contains(e.target) && e.target !== celGrado) {
+        menuGrados.classList.add("oculto");
+    }
+});
+
+celMatricula.addEventListener("input", () => {
+    const sel = window.getSelection();
+    const pos = sel.anchorOffset;
+
+    const original = celMatricula.textContent;
+    const limpio = original.replace(/\D/g, "");
+
+    if (original !== limpio) {
+        celMatricula.textContent = limpio;
+
+        // Restaurar posición del cursor al final
+        const range = document.createRange();
+        range.setStart(celMatricula.childNodes[0], limpio.length);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+});
+
+celTelefono.addEventListener("input", () => {
+    const sel = window.getSelection();
+    const pos = sel.anchorOffset;
+
+    const original = celTelefono.textContent;
+    const limpio = original.replace(/\D/g, ""); // solo números
+
+    if (original !== limpio) {
+        celTelefono.textContent = limpio;
+
+        // Restaurar cursor al final
+        const range = document.createRange();
+        range.setStart(celTelefono.childNodes[0], limpio.length);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+});
