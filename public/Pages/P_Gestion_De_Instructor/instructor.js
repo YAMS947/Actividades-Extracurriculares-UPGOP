@@ -2,7 +2,7 @@
 // 1. Seguridad y contexto
 // ===============================
 if (!isLoggedIn()) {
-    alert("No tienes una sesión activa.");
+    mostrarError("No tienes una sesión activa.");
     window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
@@ -11,8 +11,18 @@ const usuario = getUser();
 // Instructor y Gestor pueden entrar.
 // Alumno NO puede entrar.
 if (usuario.userType !== "INST" && usuario.userType !== "GEST") {
-    alert("No autorizado.");
+    mostrarError("No autorizado.");
     window.location.href = "/";
+}
+
+if (user.userType !== "GEST") {
+    document.getElementById("btnRegresar").classList.add("oculto");
+}
+
+if (usuario.userType === "GEST"){
+    document.getElementById("btnRegresar").onclick = () => {
+        window.location.href = "/public/Pages/P_Gestion_De_Instructores/instructores.html";
+    };
 }
 
 // ===============================
@@ -53,7 +63,7 @@ function construirBodyDatos() {
     // Gestor viendo datos de un instructor seleccionado
     const seleccionadoStr = localStorage.getItem("instructorSeleccionado");
     if (!seleccionadoStr) {
-        alert("No se seleccionó ningún instructor.");
+        mostrarError("No se seleccionó ningún instructor.");
         window.location.href = "/public/Pages/P_Gestion_De_Instructores/instructores.html";
         return null;
     }
@@ -82,7 +92,7 @@ async function cargarDatosInstructor() {
     const data = await res.json();
 
     if (data.error) {
-        alert("Error al obtener datos del instructor: " + data.error);
+        mostrarError("Error al obtener datos del instructor: " + data.error);
         return;
     }
 
@@ -154,36 +164,134 @@ function desactivarEdicion() {
 // ===============================
 // 7. Validaciones antes de guardar
 // ===============================
+function capitalizarNombreCompleto(texto) {
+    if (!texto) return "";
+
+    return texto
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim()
+        .split(" ")
+        .map(p => {
+            const excepciones = ["de", "del", "la", "las", "los", "y"];
+            return excepciones.includes(p)
+                ? p
+                : p.charAt(0).toUpperCase() + p.slice(1);
+        })
+        .join(" ");
+}
+
+function validarDatosInstructor() {
+
+    let nombre = capitalizarNombreCompleto(celNombre.textContent.trim());
+    let apellidos = capitalizarNombreCompleto(celApellidos.textContent.trim());
+    let telefono = celTelefono.textContent.trim();
+
+    const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+
+    // Validar nombre
+    if (!soloLetras.test(nombre)) {
+        mostrarError("El nombre solo puede contener letras y espacios.");
+        return null;
+    }
+    if (nombre.length < 2 || nombre.length > 35) {
+        mostrarError("El nombre debe tener entre 2 y 35 caracteres.");
+        return null;
+    }
+
+    // Validar apellidos
+    if (!soloLetras.test(apellidos)) {
+        mostrarError("Los apellidos solo pueden contener letras y espacios.");
+        return null;
+    }
+    if (apellidos.length < 2 || apellidos.length > 20) {
+        mostrarError("Los apellidos deben tener entre 2 y 20 caracteres.");
+        return null;
+    }
+
+    // Validar teléfono
+    if (telefono.length > 0 && !/^\d+$/.test(telefono)) {
+        mostrarError("El número telefónico solo puede contener dígitos.");
+        return null;
+    }
+    if (telefono.length > 0 && (telefono.length < 10 || telefono.length > 15)) {
+        mostrarError("El número telefónico debe tener entre 10 y 15 dígitos.");
+        return null;
+    }
+
+    return { nombre, apellidos, telefono };
+}
+
+celTelefono.addEventListener("input", () => {
+    const sel = window.getSelection();
+    const pos = sel.anchorOffset;
+
+    const original = celTelefono.textContent;
+    const limpio = original.replace(/\D/g, "");
+
+    if (original !== limpio) {
+        celTelefono.textContent = limpio;
+
+        const range = document.createRange();
+        range.setStart(celTelefono.childNodes[0], limpio.length);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+});
+
 function validarDatosEditados() {
-    const nombre    = celNombre.textContent.trim();
-    const apellidos = celApellidos.textContent.trim();
-    const telefono  = celTelefono.textContent.trim();
 
-    if (!nombre || !apellidos) {
-        alert("Nombre y apellidos son obligatorios.");
+    // Normalizar y capitalizar
+    let nombre    = capitalizarNombreCompleto(celNombre.textContent.trim());
+    let apellidos = capitalizarNombreCompleto(celApellidos.textContent.trim());
+    let telefono  = celTelefono.textContent.trim();
+
+    const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+
+    // Validar nombre
+    if (!soloLetras.test(nombre)) {
+        mostrarError("El nombre solo puede contener letras y espacios.");
+        return null;
+    }
+    if (nombre.length < 2 || nombre.length > 35) {
+        mostrarError("El nombre debe tener entre 2 y 35 caracteres.");
         return null;
     }
 
-    if (nombre.length > 35) {
-        alert("El nombre no puede tener más de 35 caracteres.");
+    // Validar apellidos
+    if (!soloLetras.test(apellidos)) {
+        mostrarError("Los apellidos solo pueden contener letras y espacios.");
+        return null;
+    }
+    if (apellidos.length < 2 || apellidos.length > 40) {
+        mostrarError("Los apellidos deben tener entre 2 y 40 caracteres.");
         return null;
     }
 
-    if (apellidos.length > 35) {
-        alert("Los apellidos no pueden tener más de 35 caracteres.");
-        return null;
-    }
-
-    // Teléfono opcional: si está vacío, se acepta.
-    // Si tiene contenido, debe ser solo dígitos y máximo 15.
-    if (telefono && !/^\d{0,15}$/.test(telefono)) {
-        alert("El número telefónico no puede tener más de 15 dígitos.");
-        return null;
-    }
-
+    // Separar apellidos en paterno y materno
     const partesAp = apellidos.split(" ");
     const apP = partesAp[0] || "";
     const apM = partesAp.slice(1).join(" ") || "";
+
+    if (apP.length > 20 || apM.length > 20) {
+        mostrarError("Cada apellido no puede tener más de 20 caracteres.");
+        return null;
+    }
+
+    // Validar teléfono
+    if (telefono.length > 0) {
+
+        if (!/^\d+$/.test(telefono)) {
+            mostrarError("El número telefónico solo puede contener dígitos.");
+            return null;
+        }
+
+        if (telefono.length < 10 || telefono.length > 15) {
+            mostrarError("El número telefónico debe tener entre 10 y 15 dígitos.");
+            return null;
+        }
+    }
 
     return {
         nombre,
@@ -218,11 +326,11 @@ async function guardarCambios() {
     const data = await res.json();
 
     if (data.error) {
-        alert("Error al actualizar datos del instructor: " + data.error);
+        mostrarError("Error al actualizar datos del instructor: " + data.error);
         return;
     }
 
-    alert("Datos del instructor actualizados correctamente.");
+    mostrarError("Datos del instructor actualizados correctamente.");
     desactivarEdicion();
     cargarDatosInstructor();
 }
@@ -269,11 +377,11 @@ btnConfirmarBaja.onclick = async () => {
     const data = await res.json();
 
     if (data.error) {
-        alert("Error al dar de baja al instructor del taller: " + data.error);
+        mostrarError("Error al dar de baja al instructor del taller: " + data.error);
         return;
     }
 
-    alert("Instructor dado de baja correctamente.");
+    mostrarError("Instructor dado de baja correctamente.");
 
     // ✔ Cerrar modal
     modalBaja.classList.add("oculto");
@@ -287,7 +395,7 @@ btnConfirmarBaja.onclick = async () => {
 // 12. Documento (simple)
 // ===============================
 btnDocumento.onclick = () => {
-    alert("Documento se implementará más adelante.");
+    mostrarError("Documento se implementará más adelante.");
 };
 
 // ===============================

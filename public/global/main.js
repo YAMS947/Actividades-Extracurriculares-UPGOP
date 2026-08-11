@@ -5,7 +5,18 @@ const menu = document.getElementById("menu-hamb");
 function construirMenu() {
     menu.innerHTML = "";
 
-    const inicio = crearItem(user.userName, "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html");
+    let inicio;
+
+    if (user.userType === "NONE") {
+        // Usuario sin sesión → botón funciona normal
+        inicio = crearItem("Iniciar sesión", "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html");
+    } else {
+        // Usuario con sesión → botón deshabilitado
+        inicio = document.createElement("div");
+        inicio.className = "menu-item menu-item-disabled";
+        inicio.textContent = user.userName;
+    }
+
     menu.appendChild(inicio);
 
     if (user.userType === "NONE") return;
@@ -57,3 +68,25 @@ function crearCerrarSesion() {
 }
 
 construirMenu();
+
+function mostrarError(mensaje) {
+    const modal = document.getElementById("modalErrorGlobal");
+    const texto = document.getElementById("modalErrorGlobalMensaje");
+
+    texto.textContent = mensaje;
+    modal.classList.add("visible");
+}
+
+function cerrarErrorGlobal() {
+    const modal = document.getElementById("modalErrorGlobal");
+    modal.classList.remove("visible");
+}
+
+document.getElementById("btnCerrarErrorGlobal").onclick = cerrarErrorGlobal;
+
+// Cerrar al hacer clic fuera del modal
+document.getElementById("modalErrorGlobal").onclick = (e) => {
+    if (e.target.id === "modalErrorGlobal") {
+        cerrarErrorGlobal();
+    }
+};

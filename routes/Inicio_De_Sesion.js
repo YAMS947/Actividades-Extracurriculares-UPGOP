@@ -201,7 +201,7 @@ router.post('/registro-alumno', (req, res) => {
 
                     res.json({
                     mensaje: "registro_exitoso",
-                    id_usuario: user.id_usuario
+                    id_usuario: id_usuario
                     });
                 });
             }

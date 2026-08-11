@@ -1,6 +1,6 @@
 // Seguridad de sesión
 if (!isLoggedIn()) {
-    alert("No tienes una sesión activa.");
+    mostrarError("No tienes una sesión activa.");
     window.location.href = "/public/Pages/P_Inicio_De_Sesion/inicioSesion.html";
 }
 
@@ -150,9 +150,6 @@ function calcularLimitesNavegacion() {
     } else {
         calcularLimitesInstGest();
     }
-
-    console.log("Primer dia permitido:", primerDiaPermitido);
-    console.log("Ultimo dia permitido:", ultimoDiaPermitido);
 }
 
 // ===============================
@@ -165,12 +162,6 @@ function calcularLimitesAlumno() {
 
     const hoy = new Date();
     const mesActualHoy = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-    console.log("calendario.js calcalum" )
-    console.log("calendario.js fechaIngresoStr", fechaIngresoStr)
-    console.log("calendario.js fechaIngreso", fechaIngreso)
-    console.log("calendario.js hoy", hoy)
-    console.log("calendario.js mesActualHoy", mesActualHoy)
-    console.log("calendario.js fin calcalum" )
     if (diasActivos.length > 0) {
 
         const primerDiaActivo = new Date(diasActivos[0].fecha);
@@ -187,9 +178,6 @@ function calcularLimitesAlumno() {
         primerDiaPermitido = mesActualHoy;
         ultimoDiaPermitido = mesActualHoy;
     }
-
-    console.log("calendario.js alum primerDiaPermitido: ", primerDiaPermitido)
-    console.log("calendario.js alum ultimoDiaPermitido: ", ultimoDiaPermitido)
 }
 
 // ===============================
@@ -198,7 +186,6 @@ function calcularLimitesAlumno() {
 function calcularLimitesInstGest() {
 
     const hoy = new Date();
-    console.log("calendario.js hoy: ", hoy)
 
     if (diasActivos.length === 0) {
         primerDiaPermitido = new Date(hoy.getFullYear(), hoy.getMonth() - 1, 1);
@@ -266,6 +253,8 @@ function construirCalendario() {
 const sieteDiasAntes = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() - 7);
 const sieteDiasDespues = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 7);
 
+
+
 if (!diaActivo) {
     celda.classList.add("inactivo");
 
@@ -289,6 +278,33 @@ if (!diaActivo) {
 
 } else {
     // Día activo
+
+    // ===============================
+    // LÓGICA PARA ALUMNO
+    // ===============================
+    if (usuario.userType === "ALUM") {
+
+    const asistenciaDia = asistencias.find(a => {
+        return a.id_dia === diaActivo.id_dia;
+    });
+        
+        celda.classList.add("no-interaccion");
+
+        if (!asistenciaDia) {
+            celda.classList.add("falta");
+        } else if (asistenciaDia.tipo === "ASIS") {
+            celda.classList.add("asistencia");
+        } else if (asistenciaDia.tipo === "JUST") {
+            celda.classList.add("justificacion");
+        } else {
+            celda.classList.add("falta");
+        }
+    }
+
+
+    // ===============================
+    // LÓGICA PARA INST Y GEST
+    // ===============================
     if (usuario.userType === "INST" || usuario.userType === "GEST") {
         celda.classList.add("activo-inst");
 
@@ -303,6 +319,7 @@ if (!diaActivo) {
         };
     }
 }
+
 
 
         fila.appendChild(celda);

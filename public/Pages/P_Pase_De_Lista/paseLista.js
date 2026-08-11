@@ -11,12 +11,20 @@
 // - Eliminar día activo
 // ============================================================
 
+document.getElementById("btnRegresar").onclick = () => {
+    window.location.href = "/public/Pages/P_Calendario/calendario.html";
+};
+
 // ============================================================
 // 1. OBTENER DATOS DEL USUARIO Y DEL DÍA
 // ============================================================
 const usuario = getUser();
 const fechaSeleccionada = localStorage.getItem("paseListaDia");
 let idTaller = null;
+
+if (usuario.userType === "ALUM"){
+    window.location.href = "/";
+}
 
 // Instructor obtiene su taller del auth
 if (usuario.userType === "INST") {
@@ -194,7 +202,7 @@ document.getElementById("btnDesactivarDia").onclick = async () => {
     const data = await res.json();
 
     if (!data.dia_activo) {
-        alert("El día ya está inactivo.");
+        mostrarError("El día ya está inactivo.");
         return;
     }
 
